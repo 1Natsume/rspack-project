@@ -1,0 +1,68 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+.headertop {
+    position: relative;
+    overflow: hidden;
+    /* height: 0; */
+}
+
+.headertop,
+.pattern-center {
+    animation: header 1s;
+}
+
+.headertop:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 3;
+    background-attachment: fixed;
+}
+
+#bgvideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 99.999%;
+    min-height: 550px;
+    z-index: 0;
+}
+
+.video-btn,
+.video-add {
+    position: absolute;
+    bottom: 3px;
+    right: 5px;
+    width: 32px;
+    height: 32px;
+    z-index: 7;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+    opacity: .8;
+    -moz-animation: poi-face 10s linear infinite alternate;
+    -webkit-animation: poi-face 10s linear infinite alternate;
+    -o-animation: poi-face 10s linear infinite alternate;
+    animation: poi-face 10s linear infinite alternate;
+}
+
+.video-btn.loadvideo,
+.video-btn.video-play {
+    background-image: url(https://images.weserv.nl/?url=https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/play@32x32.png);
+}
+
+.video-btn.video-pause {
+    background-image: url(https://images.weserv.nl/?url=https://cdn.jsdelivr.net/gh/moezx/cdn@3.1.9/img/Sakura/images/pause@32x32.png);
+}
+
+.video-add {
+    background-image: url(https://images.weserv.nl/?url=https://jsdelivr.2heng.xin/gh/moezx/cdn@3.1.9/img/Sakura/images/add@32x32.png);
+    bottom: 45px;
+    display: none;
+}

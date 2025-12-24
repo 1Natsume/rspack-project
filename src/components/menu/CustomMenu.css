@@ -1,0 +1,54 @@
+.menu {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+.menu-item {
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  float: left;
+  font-size: 16px;
+  border-radius: 15px;
+}
+
+.menu-item:hover {
+  background: #999;
+}
+
+.menu-item.active {
+  background: #1890ff;
+  color: white;
+  
+}
+
+.menu-item-title{
+  display: none;
+}
+
+.menu-item-title.active{
+  display: block;
+}
+
+
+.menu-arrow{
+    position: relative;
+    right: -20%;
+    display: none;
+}
+
+.menu-arrow.active{
+   display: block;
+}
+
+.menu-item-icon {
+    position: relative;
+    width: 20%;
+
+    i {
+        margin: 0 auto;
+    }
+}

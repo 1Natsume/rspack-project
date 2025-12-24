@@ -1,0 +1,219 @@
+/* ProTable.css */
+.pro-table-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
+
+.pro-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.pro-table-pagination {
+  display: flex;
+  justify-content: flex-end;
+  padding: 16px 0;
+}
+
+.pro-table-footer {
+  padding: 8px 0;
+  border-top: 1px solid #f0f0f0;
+  color: #666;
+  font-size: 14px;
+}
+
+.pro-table .ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.pro-table .ant-table-thead > tr > th {
+  background-color: #f9fafb;
+  font-weight: 600;
+  color: #333;
+}
+
+.pro-table .ant-table-tbody > tr > td {
+  transition: background-color 0.3s;
+}
+
+.pro-table .ant-table-tbody > tr:hover > td {
+  background-color: #f5f7fa !important;
+}
+
+.avatar-cell {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar-name {
+  font-weight: 500;
+}
+
+.image-group {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.table-image {
+  border-radius: 4px;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.image-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  background: #f0f2f5;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #666;
+}
+
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.more-tag {
+  background: #f0f2f5;
+  border: none;
+  color: #666;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  padding: 0;
+  height: auto;
+}
+
+.table-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.switch-cell {
+  display: flex;
+  justify-content: center;
+}
+
+.switch-cell .ant-switch {
+  margin: 0 auto;
+}
+
+/* 行样式 */
+.row-success {
+  background-color: #f6ffed !important;
+}
+
+.row-warning {
+  background-color: #fffbe6 !important;
+}
+
+.row-error {
+  background-color: #fff2f0 !important;
+}
+
+.text-warning {
+  color: #faad14;
+}
+
+.text-danger {
+  color: #ff4d4f;
+}
+
+.text-success {
+  color: #52c41a;
+}
+
+/* 表格头部样式 */
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.table-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+/* 树形表格样式 */
+.tree-cell {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  color: #666;
+}
+
+.expand-icon-placeholder {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+}
+
+/* 层级样式 */
+.tree-row-level-1 .tree-cell {
+  padding-left: 15px !important;
+}
+
+.tree-row-level-2 .tree-cell {
+  padding-left: 30px !important;
+}
+
+.tree-row-level-3 .tree-cell {
+  padding-left: 45px !important;
+}
+
+.tree-row-level-4 .tree-cell {
+  padding-left: 60px !important;
+}
+
+/* 行操作菜单 */
+.row-actions {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.pro-table .ant-table-tbody > tr:hover .row-actions {
+  opacity: 1;
+}

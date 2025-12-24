@@ -1,0 +1,625 @@
+@use './index' as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.galgame-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    .characters-container {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 80%;
+        z-index: 2;
+    }
+
+    .character {
+        position: absolute;
+        bottom: 0;
+        height: 100%;
+        transition: all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .character-sprite {
+        height: 100%;
+        max-width: 100%;
+        object-fit: contain;
+        // image-rendering: crisp-edges;
+        // filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5));
+    }
+
+    .character-expression {
+        position: absolute;
+        width: 32%;
+        height: 32%;
+        object-fit: contain;
+
+        top: 17%;
+        left: 37.5%;
+    }
+
+    .character-left {
+        left: 5%;
+        transform: scale(0.9);
+        animation: slideInLeft 0.7s forwards;
+    }
+
+    .character-center {
+        left: 50%;
+        transform: translateX(-50%) scale(1);
+        animation: fadeIn 0.7s forwards;
+    }
+
+    .character-right {
+        right: 5%;
+        transform: scale(0.9);
+        animation: slideInRight 0.7s forwards;
+    }
+
+    .background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: background-image 1s ease-in-out;
+        z-index: 1;
+    }
+
+    /* 选择框样式 */
+    .gal-options {
+        position: fixed;
+        top: 10%;
+        left: 20%;
+        // background: rgba(0, 0, 0, 0.7);
+        // border-radius: 15px;
+        padding: 20px;
+        // border: 2px solid rgba(255, 255, 255, 0.15);
+        // box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        //backdrop-filter: blur(8px);
+        width: 60%;
+        //max-width: 600px;
+        margin: 0 auto;
+        animation: fadeInUp 1s ease-out;
+        z-index: 10;
+    }
+
+    .gal-title {
+        text-align: center;
+        font-size: 1.4rem;
+        margin-bottom: 20px;
+        color: #4fc3f7;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .gal-option {
+        display: block;
+        width: 100%;
+        padding: 16px 20px;
+        margin: 12px 0;
+        background: rgba(50, 50, 70, 0.6);
+        border: none;
+        border-radius: 10px;
+        color: #fff;
+        font-size: 1.2rem;
+        text-align: left;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-family: 'Noto Serif SC', serif;
+    }
+
+    .gal-option:hover {
+        background: rgba(80, 100, 200, 0.8);
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 100, 255, 0.4);
+    }
+
+    .gal-option:active {
+        transform: translateY(1px);
+    }
+
+    .gal-option::before {
+        content: "▶";
+        position: absolute;
+        left: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        color: #ffeb3b;
+    }
+
+    .gal-option:hover::before {
+        opacity: 1;
+    }
+
+    .gal-option span {
+        margin-left: 25px;
+        display: block;
+    }
+
+    /* 在App.css中添加以下样式 */
+
+    /* CG画廊样式 */
+    .cg-gallery {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        // top: 70px;
+        // left: 20px;
+        // right: 20px;
+        // bottom: 20px;
+        background: var(--dialogue-bg);
+        border: 2px solid var(--secondary-color);
+        border-radius: 12px;
+        padding: 20px;
+        z-index: 300;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        animation: slideIn 0.4s ease;
+    }
+
+    .cg-gallery-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--secondary-color);
+    }
+
+    .cg-gallery-header h2 {
+        color: var(--accent-color);
+        font-size: 1.8rem;
+    }
+
+    .close-gallery {
+        background: none;
+        border: none;
+        color: var(--text-color);
+        font-size: 1.8rem;
+        cursor: pointer;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s ease;
+        border-radius: 50%;
+    }
+
+    .close-gallery:hover {
+        background: rgba(122, 125, 204, 0.3);
+        transform: rotate(90deg);
+    }
+
+    .no-cg-message {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: var(--secondary-color);
+        font-size: 1.2rem;
+        text-align: center;
+    }
+
+    .no-cg-message p:first-child {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    .cg-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        overflow-y: auto;
+        padding-right: 10px;
+    }
+
+    .cg-item {
+        position: relative;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border-radius: 8px;
+        overflow: hidden;
+        background: rgba(44, 44, 84, 0.6);
+        border: 2px solid transparent;
+    }
+
+    .cg-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        border-color: var(--accent-color);
+    }
+
+    .cg-thumbnail {
+        width: 100%;
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .cg-image {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: transform 0.3s ease;
+        z-index: -1;
+    }
+
+    .cg-item:hover .cg-image {
+        transform: scale(1.05);
+    }
+
+    .cg-title {
+        position: absolute;
+        width: 100%;
+        margin-top: -100px;
+        padding: 10px;
+        text-align: center;
+        color: var(--text-color);
+        font-weight: 500;
+    }
+
+    /* CG查看器样式 */
+    .cg-viewer {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 400;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    .cg-viewer-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        background: var(--darker-bg);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .cg-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: rgba(0, 0, 0, 0.5);
+        border: none;
+        color: var(--text-color);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.5rem;
+        cursor: pointer;
+        z-index: 10;
+        transition: all 0.2s ease;
+    }
+
+    .cg-close:hover {
+        background: rgba(231, 76, 60, 0.8);
+        transform: scale(1.1);
+    }
+
+    .cg-full-image {
+        width: 100%;
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+    }
+
+    .cg-info {
+        padding: 20px;
+        text-align: center;
+    }
+
+    .cg-info h3 {
+        color: var(--accent-color);
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+    .cg-info p {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+    }
+
+    .cg-navigation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 15px;
+        background: rgba(44, 44, 84, 0.7);
+    }
+
+    .cg-nav-button {
+        background: var(--secondary-color);
+        border: none;
+        color: var(--text-color);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 1.2rem;
+        cursor: pointer;
+        margin: 0 15px;
+        transition: all 0.2s ease;
+    }
+
+    .cg-nav-button:hover:not(:disabled) {
+        background: var(--accent-color);
+        transform: scale(1.1);
+    }
+
+    .cg-nav-button:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    .cg-counter {
+        color: var(--text-color);
+        font-size: 1.1rem;
+        min-width: 80px;
+        text-align: center;
+    }
+
+    .dialogue-box {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        max-width: 800px;
+        background: linear-gradient(to bottom, rgba(50, 20, 50, 0.9), rgba(30, 10, 40, 0.95));
+        border: 3px solid var($gold-color);
+        border-radius: 15px;
+        padding: 25px 30px;
+        color: var($light-text);
+        z-index: 10;
+        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(5px);
+    }
+
+    .speaker-name {
+        position: absolute;
+        top: -22px;
+        left: 20px;
+        background: linear-gradient(to bottom, var($primary-color), var($secondary-color));
+        color: #fff;
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-weight: bold;
+        font-size: 1.3em;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .dialogue-text {
+        font-size: 1.5em;
+        line-height: 1.7;
+        min-height: 120px;
+        padding-right: 30px;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+    }
+
+    .cursor {
+        position: absolute;
+        bottom: 25px;
+        right: 30px;
+        animation: blink 1s infinite;
+        font-size: 1.6em;
+        color: var($gold-color);
+    }
+
+    .control-panel {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: var($dark-bg);
+        border: 2px solid var($primary-color);
+        border-radius: 15px;
+        padding: 15px;
+        color: var($light-text);
+        z-index: 20;
+        max-width: 320px;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+    }
+
+    .control-panel.closed {
+        padding: 10px 15px;
+        width: auto;
+    }
+
+    .control-panel h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: var($gold-color);
+        border-bottom: 2px solid var($primary-color);
+        padding-bottom: 8px;
+        text-align: center;
+    }
+
+    .toggle-btn {
+        background: linear-gradient(to bottom, var($primary-color), var($secondary-color));
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 15px;
+        font-size: 0.9em;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto 10px;
+        width: 100%;
+        font-weight: bold;
+        transition: all 0.2s;
+    }
+
+    .toggle-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .character-controls {
+        max-height: 400px;
+        overflow-y: auto;
+        padding-right: 5px;
+    }
+
+    .character-control {
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .character-control h4 {
+        margin: 5px 0 10px;
+        color: var($primary-color);
+        text-align: center;
+        font-size: 1.1em;
+    }
+
+    .control-group {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        margin: 10px 0;
+    }
+
+    .control-btn {
+        background: rgba(100, 60, 100, 0.7);
+        color: white;
+        border: 1px solid var($primary-color);
+        border-radius: 5px;
+        padding: 6px 12px;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s;
+        min-width: 70px;
+    }
+
+    .control-btn:hover {
+        background: rgba(140, 90, 140, 0.9);
+        transform: translateY(-2px);
+    }
+
+    .expression-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+        justify-content: center;
+    }
+
+    .expression-btn {
+        background: rgba(70, 40, 70, 0.7);
+        color: #f0c0e0;
+        border: 1px solid rgba(200, 150, 200, 0.5);
+        border-radius: 15px;
+        padding: 5px 10px;
+        font-size: 0.8em;
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .expression-btn:hover,
+    .expression-btn.active {
+        background: var($primary-color);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+    .background-controls {
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .bg-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .bg-btn {
+        background: rgba(80, 50, 100, 0.7);
+        color: #e0c0f0;
+        border: 1px solid var($primary-color);
+        border-radius: 5px;
+        padding: 8px 15px;
+        font-size: 0.9em;
+        cursor: pointer;
+        transition: all 0.2s;
+        flex: 1;
+        min-width: 80px;
+    }
+
+    .bg-btn:hover {
+        background: rgba(120, 70, 140, 0.9);
+        transform: translateY(-2px);
+    }
+
+    /* 滚动条样式 */
+    .character-controls::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .character-controls::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+    }
+
+    .character-controls::-webkit-scrollbar-thumb {
+        background: var($primary-color);
+        border-radius: 4px;
+    }
+
+    .character-controls::-webkit-scrollbar-thumb:hover {
+        background: var($secondary-color);
+    }
+}
+
+
+.container {
+    .login {
+        position: relative;
+        width: 20%;
+        margin: 0 auto;
+    }
+}
