@@ -7,13 +7,9 @@ window.APP_CONFIG = {
     timeout: 30000,
     authHeader: 'X-Auth-Token'
   },
-  menu:[
-     { name: "HOME", title: "首页", path: "/", icon: "fc-lol-huli fc-icon-40" },
-     {
-      name:'CG',
-      title:'CG',
-      path:'/CG'
-    },
+  menu: [
+    { name: "HOME", title: "首页", path: "/blog", icon: "fc-lol-huli fc-icon-40" },
+    { name: 'CG', title: 'CG', path: '/CG' },
     { name: "FOLLOW", title: "关注", path: 'me', icon: "fc-lol-ruiwen fc-icon-40" },
   ]
 };

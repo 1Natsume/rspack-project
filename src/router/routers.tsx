@@ -1,4 +1,5 @@
 import Layout from '@/layouts';
+import Blog from '@/views/blog';
 import CG from '@/views/cg';
 import React from 'react';
 import { RouteObject } from 'react-router-dom';
@@ -19,7 +20,11 @@ const routers: RouteObject[] = [
         element: <Home />
       },
       {
-        path :'CG',
+        path :'blog',
+        element:<Blog/>
+      },
+      {
+        path :'cg',
         element:<CG/>
       }
     ],
