@@ -60,7 +60,7 @@ class WebScraper {
     }
   }
 
-  private extractDatas(document: Document, selector: string) {
+  public extractDatas(document: Document, selector: string) {
     const element = document.querySelectorAll(selector);
     
     if (!element) {

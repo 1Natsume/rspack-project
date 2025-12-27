@@ -8,7 +8,7 @@ window.APP_CONFIG = {
     authHeader: 'X-Auth-Token'
   },
   menu:[
-     { name: "HOME", title: "首页", path: "/category/default", icon: "fc-lol-huli fc-icon-40" },
+     { name: "HOME", title: "首页", path: "/", icon: "fc-lol-huli fc-icon-40" },
      {
       name:'CG',
       title:'CG',

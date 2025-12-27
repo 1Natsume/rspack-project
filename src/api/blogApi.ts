@@ -1,52 +1,111 @@
 import { webScraper } from '@/utils/webScraper';
-import { Archive } from '@/types/blog/types';
+import { Archive, Pager } from '@/types/blog/types';
 import { apiService } from '@/request/api.service';
+
+const extractNumbers = (str: string): number[] => {
+    const numbers: number[] = [];
+    const regex = /\d+\.?\d*/g;
+    let match;
+
+    while ((match = regex.exec(str)) !== null) {
+        numbers.push(parseFloat(match[0]));
+    }
+
+    return numbers;
+};
 
 export const blogApi = {
     GetCategoryList: async (page: number = 1) => {
         let data: Archive[] = []
-        const multipleResults = await webScraper.scrapeElements(
-            '/newjersey?page=' + page,
-            '.forFlow .day',
-            15000
-        );
+        let pager: Pager = {
+            current: page,
+            pages: []
+        }
+        const dom = await webScraper.scrapeHtml('/newjersey?page=' + page);
+        pager.pages = extractNumbers(dom.querySelector('#homepage_bottom_pager .pager')?.textContent as string)
+        const multipleResults = await webScraper.extractDatas(dom, '.forFlow .day');
 
         multipleResults?.forEach(el => {
-            let a: Archive = {
-                id: 0,
-                title: '',
-                url: '',
-                desc: '',
-                time: '',
-                readNum: 0,
-                commentNum: 0,
-                recommendNum: 0,
-                editUrl: '',
-                imgUrl: '',
-                isTop: false
-            };
             el.querySelector(".dayTitle a")?.textContent.trim();
-            a.title = el.querySelector(".postTitle a span")?.textContent.trim().replace("[置顶]", "").replace(" [置顶]", "") as string;
-            let postDesc = el.querySelector(".postDesc")?.textContent;
-            a.editUrl = el.querySelector(".postTitle a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com','') as string;
-            el.querySelector(".postCon .c_b_p_desc a")?.remove();
-            a.isTop = el.classList.contains('pinned')
-            a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;
-            if (el.querySelector(".desc_img")) {
-                a.imgUrl = 'https://images.weserv.nl/?url=' + el.querySelector(".desc_img")?.attributes[0].value;
+            var ar = el.querySelectorAll('.postTitle')
+            if (ar.length > 1) {
+                ar.forEach((item, index) => {
+                    let a: Archive = {
+                        id: 0,
+                        title: '',
+                        url: '',
+                        desc: '',
+                        time: '',
+                        readNum: 0,
+                        commentNum: 0,
+                        recommendNum: 0,
+                        editUrl: '',
+                        imgUrl: '',
+                        isTop: false
+                    };
+                    a.title = item.querySelector("a span")?.textContent.trim().replace("[置顶]", "").replace(" [置顶]", "") as string;
+                    let postDesc = el.querySelectorAll(".postDesc")[index].textContent;
+                    a.editUrl = item.querySelector("a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com', '') as string;
+                    // el.querySelector(".postCon .c_b_p_desc a")?.remove();
+                    // a.isTop = el.classList.contains('pinned')
+                    // a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;
+                    if (el.querySelectorAll(".desc_img")[index]) {
+                        a.imgUrl = 'https://images.weserv.nl/?url=' + el.querySelectorAll(".desc_img")[index]?.attributes[0].value;
+                    }
+                    let idArr = a.editUrl.split("/");
+                    a.id = parseInt(idArr[idArr.length - 1].replace(".html", ""));
+
+                    if (postDesc) {
+                        a.readNum = parseInt(postDesc.split("\n")[2].replace("阅读(", "").replace(")", "").trim());
+                        a.commentNum = parseInt(postDesc.split("\n")[3].replace("评论(", "").replace(")", ""));
+                        a.recommendNum = parseInt(postDesc.split("\n")[4].replace("推荐(", "").replace(")", ""));
+                    }
+
+                    data.push(a)
+                })
+            }
+            else {
+                let a: Archive = {
+                    id: 0,
+                    title: '',
+                    url: '',
+                    desc: '',
+                    time: '',
+                    readNum: 0,
+                    commentNum: 0,
+                    recommendNum: 0,
+                    editUrl: '',
+                    imgUrl: '',
+                    isTop: false
+                };
+                a.title = el.querySelector(".postTitle a span")?.textContent.trim().replace("[置顶]", "").replace(" [置顶]", "") as string;
+                let postDesc = el.querySelector(".postDesc")?.textContent;
+                a.editUrl = el.querySelector(".postTitle a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com', '') as string;
+                el.querySelector(".postCon .c_b_p_desc a")?.remove();
+                a.isTop = el.classList.contains('pinned')
+                a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;
+                if (el.querySelector(".desc_img")) {
+                    a.imgUrl = 'https://images.weserv.nl/?url=' + el.querySelector(".desc_img")?.attributes[0].value;
+                }
+
+                if (postDesc) {
+                    a.readNum = parseInt(postDesc.split("\n")[2].replace("阅读(", "").replace(")", "").trim());
+                    a.commentNum = parseInt(postDesc.split("\n")[3].replace("评论(", "").replace(")", ""));
+                    a.recommendNum = parseInt(postDesc.split("\n")[4].replace("推荐(", "").replace(")", ""));
+                    let idArr = a.editUrl.split("/");
+                    a.id = parseInt(idArr[idArr.length - 1].replace(".html", ""));
+                }
+
+                data.push(a)
             }
 
-            if (postDesc) {
-                a.readNum = parseInt(postDesc.split("\n")[2].replace("阅读(", "").replace(")", "").trim());
-                a.commentNum = parseInt(postDesc.split("\n")[3].replace("评论(", "").replace(")", ""));
-                a.recommendNum = parseInt(postDesc.split("\n")[4].replace("推荐(", "").replace(")", "")); 
-                let idArr = a.editUrl.split("/");
-                a.id = parseInt(idArr[idArr.length - 1].replace(".html", ""));
-            }
-
-            data.push(a)
         })
-        return data
+
+        let res = {
+            data,
+            pager
+        }
+        return res
     },
     blogFollow: async () => {
         let res = await apiService.post(
@@ -54,9 +113,9 @@ export const blogApi = {
         );
         if (res) return true
     },
-    GetArticle: async (param:Archive) => {
+    GetArticle: async (param: Archive) => {
         const dom = await webScraper.scrapeHtml(param.editUrl);
-        let obj:Archive = {
+        let obj: Archive = {
             id: 0,
             title: '',
             url: '',

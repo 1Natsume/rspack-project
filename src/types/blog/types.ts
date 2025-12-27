@@ -11,3 +11,8 @@ export interface Archive  {
     imgUrl: string;
     isTop: boolean;
 }
+
+export interface Pager{
+    current:number;
+    pages:number[];
+}

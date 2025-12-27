@@ -35,7 +35,7 @@ const AppMenu = ({ menu }: AppMenuProps) => {
                 {
                     menu?.map(item => (
                         <li key={item.name} className="text-[#f57878] hover:text-cyan-300 text-right mr-2">
-                            <a href="javascript:void(0)" onClick={(e) =>clickItem(e,item.path)}>
+                            <a style={{cursor: 'pointer'}} onClick={(e) =>clickItem(e,item.path)}>
                                 <div className="relative text-[40px] text-shadow-[-1px_0_white, 0_1px_white, 1px_0_white, 0_-1px_white]">{item.name}</div>
                                 <div className="relative -mt-4">{item.title}</div>
                             </a>
