@@ -10,9 +10,17 @@ export interface Archive  {
     editUrl: string;
     imgUrl: string;
     isTop: boolean;
+    comments?:Comment[]
 }
 
 export interface Pager{
     current:number;
     pages:number[];
+}
+
+export interface Comment{
+    id: number;
+    date:string;
+    author:string;
+    desc:string;
 }

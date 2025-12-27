@@ -3,6 +3,8 @@ import { blogApi } from '@/api/blogApi';
 import { Archive, Pager } from '@/types/blog/types';
 import React, { useEffect, useRef, useState } from 'react';
 import CodeBlock from '../CodeBlock';
+import Background from './Background';
+import RichTextEditor from '../RichTextEditor';
 
 interface CGGalleryProps {
     onClose: () => void;
@@ -64,11 +66,17 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
     };
 
     return (
-        <div className="cg-gallery">
-            <div className="cg-gallery-header text-blue-300 h-20 w-full">
-                <h2 className='text-[25px]'>CG画廊</h2>
-                <button className="close-gallery absolute right-2" onClick={onClose}>
-                    ×
+        <div className="cg-gallery h-screen relative" style={{
+            backgroundImage: 'url(/images/bg.png)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            backgroundAttachment: 'fixed', // 视差效果
+        }}>
+            <div className="cg-gallery-header text-blue-300 h-auto w-full relative">
+                <h2 className='absolute text-[25px] left-1'>CG画廊</h2>
+                <button className="close-gallery absolute right-2 top-2" onClick={onClose}>
+                    <img src="/images/close.png"></img>
                 </button>
             </div>
 
@@ -78,12 +86,12 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                     <p>继续游戏以解锁更多CG</p>
                 </div>
             ) : (
-                <div className="cg-grid grid sm:grid-cols-4 lg:grid-cols-3 gap-8 justify-center pl-6 pr-6 sm:pl-20 sm:pr-20 xl:grid-cols-4">
+                <div className="cg-grid relative top-10 grid sm:grid-cols-4 lg:grid-cols-3 gap-8 justify-center pl-6 pr-6 sm:pl-20 sm:pr-20 xl:grid-cols-4">
                     {unlockedCGs.map((cg, index) => (
                         <div
                             key={cg.id}
-                            style={{cursor: 'pointer'}}
-                            className="cg-item relative bg-gray-500 rounded-xl h-10 xl:h-40 xl:text-2xl overflow-hidden"
+                            style={{ cursor: 'pointer' }}
+                            className="cg-item relative bg-gray-500 rounded-xl h-40 xl:h-44 xl:text-2xl overflow-hidden"
                             onClick={() => openCG(cg, index)}
                         >
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
@@ -91,7 +99,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                                     cg.imgUrl && (<img src={cg.imgUrl} />)
                                 }
                             </div>
-                            <div className="cg-title absolute top-16 text-white w-full h-8 text-center self-center text-[14px] overflow-hidden text-ellipsis">
+                            <div className="cg-title absolute inset-0 text-white w-full h-8 text-center self-center text-[14px] overflow-hidden text-ellipsis">
                                 {cg.title}
                             </div>
                             <div className='cg-date'>
@@ -105,10 +113,25 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
             {selectedCG && (
                 <div className="cg-viewer absolute top-0 w-auto inset-0 m-auto bg-white overflow-y-scroll">
                     <h3 className='absolute text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG.title}</h3>
-                    <button className="cg-close fixed top-0 right-2 z-10" onClick={closeCG}>×</button>
+                    <button className="cg-close fixed top-0 right-2 z-10" onClick={closeCG}>
+                        <img src="/images/close.png"></img>
+                    </button>
                     <div className={`cg-full-image relative`}><img className='w-full h-44 object-cover' src={selectedCG.imgUrl} /></div>
                     <div className="cg-viewer-content relative w-full z-10">
                         {<CodeBlock code={selectedCG.desc} language={'javascript'}></CodeBlock>}
+                    </div>
+                    <div className='cg-editor'>
+                        {
+                            <RichTextEditor></RichTextEditor>
+                        }
+                    </div>
+                    <div className='cg-comment'>
+                        {
+
+                            selectedCG.comments?.map(item => (
+                                <div>{item.desc}</div>
+                            ))
+                        }
                     </div>
                     <div className="cg-navigation w-fit inset-0 m-auto z-10">
                         <button
@@ -133,10 +156,10 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
             )}
             {
                 pager && (
-                    <div className='cg-pager flex items-center justify-center'>
+                    <div className='cg-pager relative top-10 flex items-center justify-center'>
                         {
                             pager.pages.map(item => (
-                                <a key={item} style={{cursor: 'pointer'}} className={pager.current==item?'p-5 text-cyan-300':'p-5'} onClick={(e) => clickItem(e, item)}>{item}</a>
+                                <a key={item} style={{ cursor: 'pointer' }} className={pager.current == item ? 'p-5 text-cyan-300' : 'p-5 text-white'} onClick={(e) => clickItem(e, item)}>{item}</a>
                             ))
                         }
                     </div>

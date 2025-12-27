@@ -1,5 +1,5 @@
 import { webScraper } from '@/utils/webScraper';
-import { Archive, Pager } from '@/types/blog/types';
+import { Archive, Pager, Comment } from '@/types/blog/types';
 import { apiService } from '@/request/api.service';
 
 const extractNumbers = (str: string): number[] => {
@@ -135,7 +135,37 @@ export const blogApi = {
         //obj.fontNum = dom.find("#topics").find(".postBody").text().length;
         obj.readNum = parseInt(dom.querySelector("#post_view_count")?.textContent as string);
         obj.id = param.id;
+        obj.comments = blogApi.GetCommentList(dom)
         return obj;
+    },
+    GetCommentList: (dom: Document) => {
+        let data: Comment[] = []
+        dom.querySelectorAll(".feedbackItem").forEach((v, i) => {
+            console.log(v)
+            let obj: Comment = {
+                id: 0,
+                date: '',
+                author: '',
+                desc: ''
+            };
+            obj.id = parseInt(v.querySelector("[class='layer']")?.getAttribute("href")?.replace("#", "") as string);
+            // obj.level = $(v).find(".layer").html();
+            // obj.label = $(v).find(".louzhu").html() || "";
+            obj.date = $(v).find(".comment_date").html();
+            obj.author = $(v).find("[id^='a_comment_author_']").text();
+            // obj.authorUrl = $(v).find("[id^='a_comment_author_']").attr("href");
+            // obj.desc = $(v).find("[id^='comment_body_']").html().replace(new RegExp("_src", 'g'), "src").trim();
+            // obj.digg = $(v).find(".comment_digg").length >= 1 ? $(v).find(".comment_digg").html().trim().replace("支持(", "").replace(")", "") : undefined;
+            // obj.burry = $(v).find(".comment_burry").length >= 1 ? $(v).find(".comment_burry").html().trim().replace("反对(", "").replace(")", "") : undefined;
+            // obj.avatarUrl = ($(v).find("[id^='comment_'][id$='_avatar']").html() || "").trim();
+            // obj.avatarHdUrl = (($(v).find("[id^='comment_'][id$='_avatar']").html() || "").trim()).replace("face", "avatar");
+            // obj.replayBtn = $(v).find("[onclick^='return ReplyComment']").length > 0;
+            // obj.quoteBtn = $(v).find("[onclick^='return QuoteComment']").length > 0;
+            // obj.delBtn = $(v).find("[onclick^='return DelComment']").length > 0;
+            // obj.updateBtn = $(v).find("[onclick^='return GetCommentBody']").length > 0;
+            data.push(obj);
+        });
+        return data
     },
 
 }
