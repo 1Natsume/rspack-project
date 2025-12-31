@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import CodeBlock from '../CodeBlock';
 import Background from './Background';
 import RichTextEditor from '../RichTextEditor';
+import { configManager } from '@/utils/ConfigManager';
 
 interface CGGalleryProps {
     onClose: () => void;
@@ -16,6 +17,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
     const [unlockedCGs, setunlockedCGs] = useState<Archive[]>([]);
     const [pager, setPager] = useState<Pager>();
     const hasMounted = useRef(false);
+    const config = configManager.get();
 
     useEffect(() => {
         if (hasMounted.current) return;
@@ -76,7 +78,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
             <div className="cg-gallery-header text-blue-300 h-auto w-full relative">
                 <h2 className='absolute text-[25px] left-1'>CG画廊</h2>
                 <button className="close-gallery absolute right-2 top-2" onClick={onClose}>
-                    <img src="/images/close.png"></img>
+                    <img src={config.api.imageUrl+"/images/close.png"}></img>
                 </button>
             </div>
 
@@ -114,7 +116,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                 <div className="cg-viewer absolute top-0 w-auto inset-0 m-auto bg-white overflow-y-scroll">
                     <h3 className='absolute text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG.title}</h3>
                     <button className="cg-close fixed top-0 right-2 z-10" onClick={closeCG}>
-                        <img src="/images/close.png"></img>
+                        <img src={config.api.imageUrl+"/images/close.png"}></img>
                     </button>
                     <div className={`cg-full-image relative`}><img className='w-full h-44 object-cover' src={selectedCG.imgUrl} /></div>
                     <div className="cg-viewer-content relative w-full z-10">

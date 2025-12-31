@@ -100,8 +100,21 @@ export default defineConfig({
 		],
 		splitChunks: {
 			chunks: 'all',
-			minSize: 1,
-		}
+			cacheGroups: {
+				default: false,
+				// 禁用默认的 vendor 分割
+				vendors: false,
+				// 将所有模块打包到一个文件中
+				common: {
+					name: 'app',
+					minChunks: 1,
+					chunks: 'all',
+					enforce: true
+				}
+			}
+		},
+		// 确保只有一个运行时 chunk
+		runtimeChunk: false
 	},
 	experiments: {
 		css: true

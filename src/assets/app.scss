@@ -1,4 +1,4 @@
-@use './index' as *;
+@use './style/index' as *;
 
 * {
     margin: 0;
@@ -612,14 +612,5 @@
 
     .character-controls::-webkit-scrollbar-thumb:hover {
         background: var($secondary-color);
-    }
-}
-
-
-.container {
-    .login {
-        position: relative;
-        width: 20%;
-        margin: 0 auto;
     }
 }

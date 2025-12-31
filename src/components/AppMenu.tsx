@@ -1,5 +1,5 @@
+import { blogApi } from "@/api/blogApi";
 import { AppMenu } from "@/types/config";
-import { MouseEventHandler } from "react";
 import { useNavigate } from "react-router-dom";
 
 interface AppMenuProps {
@@ -9,13 +9,17 @@ interface AppMenuProps {
 const AppMenu = ({ menu }: AppMenuProps) => {
     var navigate = useNavigate()
 
+    const blogFollow = async () =>{
+        const res =await blogApi.blogFollow()
+        return res
+    }
+
     const clickItem = (event: React.MouseEvent<HTMLAnchorElement>, url: string) => {
         event.preventDefault();
         if (!url) {
             return;
         }
         else if (url.startsWith("me")) {
-            //this.foucsMe()
             return;
         }
         else if (url.startsWith("http")) {

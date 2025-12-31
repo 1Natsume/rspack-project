@@ -1,4 +1,4 @@
-import { defaultSetting } from '@/default-setting';
+import { defaultSetting } from '@/types/default-setting';
 import { create } from 'zustand';
 import { createJSONStorage, devtools, persist } from 'zustand/middleware';
 

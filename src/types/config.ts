@@ -11,6 +11,7 @@ export interface AppConfig {
     baseUrl: string;
     timeout: number;
     authHeader: string;
+    imageUrl: string;
   };
   
   // 应用配置
@@ -29,7 +30,8 @@ export const defaultConfig: AppConfig = {
   api: {
     baseUrl: 'http://localhost:3000',
     timeout: 30000,
-    authHeader: 'Authorization'
+    authHeader: 'Authorization',
+    imageUrl: 'http://localhost:3000',
   },
   app: {
     name: 'My React App',

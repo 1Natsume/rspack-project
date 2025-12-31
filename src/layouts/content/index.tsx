@@ -1,5 +1,5 @@
 import { Loading } from '@/components/loading';
-import { defaultSetting } from '@/default-setting';
+import { defaultSetting } from '@/types/default-setting';
 import { usePCScreen } from '@/hooks/use-pc-screen';
 import { useSelector } from '@/hooks/use-selector';
 import { useGlobalStore } from '@/stores/global';

@@ -1,7 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '@/assets/GalgameCG.css';
+import './GalgameCG.css';
+import { configManager } from '@/utils/ConfigManager';
 
 interface GalgameCGProps {
+  isOpen: boolean;
+  onClose: () => void;
   /** 背景图片URL */
   backgroundImage: string;
   /** 表情配置数组 */
@@ -37,6 +40,8 @@ interface GalgameCGProps {
 }
 
 const GalgameCG: React.FC<GalgameCGProps> = ({
+  isOpen,
+  onClose,
   backgroundImage,
   expressions,
   initialExpressionIndex = 0,
@@ -50,6 +55,7 @@ const GalgameCG: React.FC<GalgameCGProps> = ({
   const [currentExpressionIndex, setCurrentExpressionIndex] = useState(initialExpressionIndex);
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerSize, setContainerSize] = useState({ width: 0, height: 0 });
+  const config = configManager.get();
 
   // 监听容器尺寸变化
   useEffect(() => {
@@ -65,14 +71,16 @@ const GalgameCG: React.FC<GalgameCGProps> = ({
     return () => window.removeEventListener('resize', updateSize);
   }, []);
 
+  if (!isOpen) return null;
+
   // 计算表情位置
   const calculatePosition = (position?: { x: number | string; y: number | string }) => {
     if (!position) return { left: '50%', top: '50%', transform: 'translate(-50%, -50%)' };
-    
+
     const { x, y } = position;
     const left = typeof x === 'string' && x.includes('%') ? x : `${x}px`;
     const top = typeof y === 'string' && y.includes('%') ? y : `${y}px`;
-    
+
     return { left, top };
   };
 
@@ -97,39 +105,43 @@ const GalgameCG: React.FC<GalgameCGProps> = ({
   const currentExpression = expressions[currentExpressionIndex];
 
   return (
-    <div className="galgame-cg-container" style={{ width, height }}>
-      {/* 背景图层 */}
-      <div 
-        className="cg-background"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-        onClick={handleBackgroundClick}
-        ref={containerRef}
-        role="button"
-        aria-label="点击切换表情"
-      >
-        {/* 表情图层 */}
-        {currentExpression && (
-          <div 
-            className="cg-expression"
-            style={{
-              backgroundImage: `url(${currentExpression.image})`,
-              ...calculatePosition(currentExpression.position),
-              transform: `translate(-50%, -50%) scale(${currentExpression.scale || 1})`,
-              zIndex: currentExpression.zIndex || 1
-            }}
-          />
-        )}
-
-        {/* 调试信息（开发时可启用） */}
-        {process.env.NODE_ENV === 'development' && (
-          <div className="debug-info">
-            当前表情: {currentExpression.name} ({currentExpressionIndex + 1}/{expressions.length})
-          </div>
-        )}
+    <div className='modal-overlay'>
+      <div className='modal-close absolute right-5 top-2' onClick={onClose}>
+        <img src={config.api.imageUrl + "/images/close.png"}></img>
       </div>
+      <div className="galgame-cg-container" style={{ width, height }}>
+        {/* 背景图层 */}
+        <div
+          className="cg-background"
+          style={{ backgroundImage: `url(${config.api.imageUrl+backgroundImage})` }}
+          onClick={handleBackgroundClick}
+          ref={containerRef}
+          role="button"
+          aria-label="点击切换表情"
+        >
+          {/* 表情图层 */}
+          {currentExpression && (
+            <div
+              className="cg-expression"
+              style={{
+                backgroundImage: `url(${config.api.imageUrl+currentExpression.image})`,
+                ...calculatePosition(currentExpression.position),
+                transform: `translate(-50%, -50%) scale(${currentExpression.scale || 1})`,
+                zIndex: currentExpression.zIndex || 1
+              }}
+            />
+          )}
 
-      {/* 表情选择器 */}
-      {showExpressionSelector && expressions.length > 1 && (
+          {/* 调试信息（开发时可启用） */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="debug-info">
+              当前表情: {currentExpression.name} ({currentExpressionIndex + 1}/{expressions.length})
+            </div>
+          )}
+        </div>
+
+        {/* 表情选择器 */}
+        {/* {showExpressionSelector && expressions.length > 1 && (
         <div className="expression-selector">
           <div className="selector-title">表情选择</div>
           <div className="expression-thumbnails">
@@ -152,37 +164,39 @@ const GalgameCG: React.FC<GalgameCGProps> = ({
             ))}
           </div>
         </div>
-      )}
+      )} */}
 
-      {/* 导航按钮（移动端友好） */}
-      {expressions.length > 1 && (
-        <div className="expression-navigation">
-          <button
-            className="nav-button prev"
-            onClick={() => {
-              const prevIndex = (currentExpressionIndex - 1 + expressions.length) % expressions.length;
-              handleExpressionSelect(prevIndex);
-            }}
-            aria-label="上一个表情"
-          >
-            ◀
-          </button>
-          <span className="expression-counter">
+        {/* 导航按钮（移动端友好） */}
+        {expressions.length > 1 && (
+          <div className="expression-navigation">
+            <button
+              className="nav-button prev"
+              onClick={() => {
+                const prevIndex = (currentExpressionIndex - 1 + expressions.length) % expressions.length;
+                handleExpressionSelect(prevIndex);
+              }}
+              aria-label="上一个表情"
+            >
+              ◀
+            </button>
+            {/* <span className="expression-counter">
             {currentExpressionIndex + 1} / {expressions.length}
-          </span>
-          <button
-            className="nav-button next"
-            onClick={() => {
-              const nextIndex = (currentExpressionIndex + 1) % expressions.length;
-              handleExpressionSelect(nextIndex);
-            }}
-            aria-label="下一个表情"
-          >
-            ▶
-          </button>
-        </div>
-      )}
+          </span> */}
+            <button
+              className="nav-button next"
+              onClick={() => {
+                const nextIndex = (currentExpressionIndex + 1) % expressions.length;
+                handleExpressionSelect(nextIndex);
+              }}
+              aria-label="下一个表情"
+            >
+              ▶
+            </button>
+          </div>
+        )}
+      </div>
     </div>
+
   );
 };
 

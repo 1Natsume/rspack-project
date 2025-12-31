@@ -1,7 +1,7 @@
 import { useUpdateEffect } from 'ahooks';
 import { Drawer } from 'antd';
 
-import { defaultSetting } from '@/default-setting';
+import { defaultSetting } from '@/types/default-setting';
 import { usePCScreen } from '@/hooks/use-pc-screen';
 import SlideMenu from './menu';
 import { useconfigStore } from '@/stores/config';

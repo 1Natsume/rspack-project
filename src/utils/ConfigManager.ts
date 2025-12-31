@@ -17,13 +17,13 @@ class ConfigManager {
       
       if (typeof window !== 'undefined') {
         // 从 window 对象读取
-        if ((window as any).APP_CONFIG) {
-          externalConfig = (window as any).APP_CONFIG;
+        if ((window as any)._config) {
+          externalConfig = (window as any)._config;
         } else {
           // 尝试从 script 标签加载
           await this.loadFromScript();
-          if ((window as any).APP_CONFIG) {
-            externalConfig = (window as any).APP_CONFIG;
+          if ((window as any)._config) {
+            externalConfig = (window as any)._config;
           }
         }
       }
@@ -52,7 +52,7 @@ class ConfigManager {
       
       script.onload = () => {
         setTimeout(() => {
-          if ((window as any).APP_CONFIG) {
+          if ((window as any)._config) {
             resolve();
           } else {
             reject(new Error('配置文件加载但未设置 APP_CONFIG'));

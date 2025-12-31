@@ -1,5 +1,5 @@
 import DraggableTab from '@/components/draggable-tab';
-import { defaultSetting } from '@/default-setting';
+import { defaultSetting } from '@/types/default-setting';
 import { KeepAliveTab, useTabs } from '@/hooks/use-tabs';
 import { router } from '@/router';
 import { t } from '@/utils/i18n';
