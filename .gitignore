@@ -9,9 +9,9 @@ dist/
 
 # Profile
 .rspack-profile-*/
+package-lock.json
 
 # IDE
 .vscode/*
 !.vscode/extensions.json
 .idea
-src/components/gal/CGGallery.tsx
