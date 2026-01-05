@@ -4,20 +4,20 @@ import type { LoginCredentials } from '@/hooks/use-auth/types';
 import { Input } from 'antd';
 import { authService } from '@/api/authAPI';
 import { antdUtils } from '@/utils/antd';
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores';
 
 const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const navigate = useNavigate();
-    const {setToken,setRefreshToken} = useconfigStore()
+    const { setToken, setRefreshToken } = useConfigStore()
 
     const from = '/dashboard';
 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        const newUser: LoginCredentials = { username:username, password: password }
+        const newUser: LoginCredentials = { username: username, password: password }
         try {
             const data = await authService.login(newUser);
             setToken(data.token)
@@ -89,8 +89,6 @@ const Login = () => {
                     </div>
                 </div>
             </div>
-
-
         </div>
     );
 };

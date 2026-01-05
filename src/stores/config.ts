@@ -2,7 +2,7 @@ import { ConfigState } from '@/types/config/types';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export const useconfigStore = create<ConfigState>()(
+export const useConfigStore = create<ConfigState>()(
   persist(
     (set, get) => ({
       collapsed: false,

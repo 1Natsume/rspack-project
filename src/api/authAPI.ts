@@ -1,5 +1,5 @@
 import { LoginCredentials, RegisterData, User } from '../hooks/use-auth/types';
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores';
 import { apiService } from '@/request/api.service';
 
 export const authService = {
@@ -19,7 +19,7 @@ export const authService = {
         return response;
     },
     logout: async (): Promise<void> => {
-        const refreshToken = useconfigStore.getState().refreshToken
+        const refreshToken = useConfigStore.getState().refreshToken
         if (refreshToken) {
             try {
                 await apiService.post('/auth/logout', { refreshToken })

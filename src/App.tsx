@@ -25,6 +25,7 @@ const App: React.FC = () => {
       // 在 hashchange 时重写 URL
       const handleHashChange = () => {
         const hash = window.location.hash.substring(2); // 移除 #/
+        console.log(hash)
         if (hash && !hash.startsWith('#')) {
           const newUrl = `${window.location.pathname}${hash ? '/' + hash : ''}`;
           window.history.replaceState({}, '', newUrl);

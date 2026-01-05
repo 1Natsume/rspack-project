@@ -1,12 +1,10 @@
-import { useGlobalStore } from '@/stores/global';
-
 import { MenuItemType } from 'antd/es/menu/interface';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useMatches } from 'react-router-dom';
 import './menu.css';
 import { Menu as CM } from '@/types/menu';
 import { Menu } from 'antd';
-import { useUserStore } from '@/stores/user';
+import { useUserStore, useConfigStore } from '@/stores';
 
 type MenuObj = CM & { children?: MenuObj[], path?: string };
 
@@ -15,7 +13,7 @@ function SlideMenu() {
   const {
     collapsed,
     darkMode,
-  } = useGlobalStore();
+  } = useConfigStore();
 
   const matches = useMatches();
 

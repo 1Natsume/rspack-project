@@ -4,7 +4,7 @@ import { Drawer } from 'antd';
 import { defaultSetting } from '@/types/default-setting';
 import { usePCScreen } from '@/hooks/use-pc-screen';
 import SlideMenu from './menu';
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores';
 
 
 function SlideIndex() {
@@ -14,7 +14,7 @@ function SlideIndex() {
   const {
     collapsed,
     setCollapsed,
-  } = useconfigStore();
+  } = useConfigStore();
 
 
   useUpdateEffect(() => {

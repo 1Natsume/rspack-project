@@ -10,7 +10,7 @@ import { replaceRoutes } from '@/router/router-utils';
 import { pages } from '@/utils/pages';
 import { useRequest, useUpdateEffect } from 'ahooks';
 import { lazy, useEffect, useState } from 'react';
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores';
 import { useUserStore } from '@/stores/user';
 import { User } from '@/hooks/use-auth/types';
 
@@ -19,7 +19,7 @@ export type CurrentUser = User & { flatMenus: Menu[], menus: Menu[], authList: s
 export function useUserDetail() {
   const [loading, setLoading] = useState(true);
 
-  const { refreshToken, token} = useconfigStore()
+  const { refreshToken, token} = useConfigStore()
   const { setUser } = useUserStore();
   //   const { setLatestMessage } = useMessageStore();
 

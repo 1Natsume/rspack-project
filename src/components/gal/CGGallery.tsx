@@ -69,7 +69,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
 
     return (
         <div className="cg-gallery h-screen relative" style={{
-            backgroundImage: 'url(/images/bg.png)',
+            backgroundImage: 'url()',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',

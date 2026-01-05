@@ -1,4 +1,4 @@
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores';
 import { AppConfig } from '@/types/config';
 import { configManager } from '@/utils/ConfigManager';
 import axios, {
@@ -106,7 +106,7 @@ export class AxiosConfig {
         config.headers['X-App-Version'] = cfg.app.version;
         config.headers['X-Environment'] = cfg.app.environment;
 
-        const token = useconfigStore.getState().token
+        const token = useConfigStore.getState().token
         if (token) {
           //config.headers = config.headers || {};
           config.headers.Authorization = `${token}`;
