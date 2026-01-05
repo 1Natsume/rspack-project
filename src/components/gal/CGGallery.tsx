@@ -93,7 +93,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         <div
                             key={cg.id}
                             style={{ cursor: 'pointer' }}
-                            className="cg-item relative bg-gray-500 rounded-xl h-40 xl:h-44 xl:text-2xl overflow-hidden"
+                            className="cg-item relative bg-gray-500 rounded-xl h-40 xl:h-44 3xl:h-80 xl:text-2xl overflow-hidden"
                             onClick={() => openCG(cg, index)}
                         >
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
@@ -101,7 +101,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                                     cg.imgUrl && (<img src={cg.imgUrl} />)
                                 }
                             </div>
-                            <div className="cg-title absolute inset-0 text-white w-full h-8 text-center self-center text-[14px] overflow-hidden text-ellipsis">
+                            <div className="cg-title absolute inset-0 text-white w-full h-8 text-center self-center text-[14px] 3xl:text-[30px] overflow-hidden text-ellipsis">
                                 {cg.title}
                             </div>
                             <div className='cg-date'>
