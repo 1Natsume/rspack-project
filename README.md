@@ -1,36 +1,28 @@
-# Rspack project
+# 博客园主题 - 旮旯
 
-## Setup
+    本主题应该会是究极缝合怪，主要采用了 [Sakura](https://github.com/mashirozx/Sakura) 主题的 headertop
 
-Install the dependencies:
+## 使用
 
-```bash
-npm install
+在博客园侧边栏公告，填入以下代码
+
+```
+/*来源可以自配*/
+<script type=text/javascript src=https://1natsume.pages.dev/cnblogLoader.js></script>
+<script type="text/javascript">
+$.cnblogLoader({
+    staticSrc:"https://1natsume.pages.dev",
+    ``` 省略配置
+});
+</script>
 ```
 
-## Get started
+## 安装
 
-Start the dev server, and the app will be available at <http://localhost:8080>.
+#### git clone 代码
 
-```bash
-npm run dev
-```
+#### build
 
-Build the app for production:
+#### 发布
 
-```bash
-npm run build
-```
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
-
-## Learn more
-
-To learn more about Rspack, check out the following resources:
-
-- [Rspack documentation](https://rspack.rs) - explore Rspack features and APIs.
-- [Rspack GitHub repository](https://github.com/web-infra-dev/rspack) - your feedback and contributions are welcome!
+#### 将发布路径替换 js 路径 和 staticSrc 路径

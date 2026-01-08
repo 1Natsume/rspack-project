@@ -7,30 +7,30 @@ const Blog = React.lazy(() => import('@/views/blog'));
 const MainLayout = React.lazy(() => import('@layouts/MainLayout'));
 const CG = React.lazy(() => import('@/views/cg'));
 const Layout = React.lazy(() => import('@/layouts'));
-// const Video = React.lazy(() => import('@/views/Video'));
+const Video = React.lazy(() => import('@/views/Video'));
 const basename = process.env.NODE_ENV === 'production'
     ? '/newjersey'
     : '';
 
 const routers = createHashRouter([
-    {
-        path: '/',
-        element: <MainLayout />,
-        children: [
-            {
-                index: true,
-                element: <Home />
-            },
-            {
-                path: 'blog',
-                element: <Blog />
-            },
-            {
-                path: 'cg',
-                element: <CG />
-            }
-        ],
-    },
+    // {
+    //     path: '/',
+    //     element: <MainLayout />,
+    //     children: [
+    //         {
+    //             index: true,
+    //             element: <Home />
+    //         },
+    //         {
+    //             path: 'blog',
+    //             element: <Blog />
+    //         },
+    //         {
+    //             path: 'cg',
+    //             element: <CG />
+    //         }
+    //     ],
+    // },
     // {
     //   path: '*',
     //   element: <Layout/>,
@@ -40,6 +40,10 @@ const routers = createHashRouter([
     //   path: '/login',
     //   element: <Login />,
     // },
+    {
+      path: '*',
+      element: <Video/>,
+    },
 ]);
 
 export default routers;
