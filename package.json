@@ -7,7 +7,7 @@
     "dev": "rspack dev",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "preview": "rspack preview"
+    "preview": "rspack build && rspack preview"
   },
   "dependencies": {
     "react": "^19.1.1",
@@ -25,6 +25,7 @@
     "@tiptap/extension-placeholder": "^3.14.0",
     "@tiptap/react": "^3.14.0",
     "@tiptap/starter-kit": "^3.14.0",
+    "@types/hls.js": "^0.13.3",
     "@types/jquery": "^3.5.33",
     "@types/lodash": "^4.17.20",
     "@types/nprogress": "^0.2.3",
@@ -40,6 +41,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "highlight.js": "^11.11.1",
+    "hls.js": "^1.6.15",
     "i18next": "^25.6.2",
     "jquery": "^3.7.1",
     "nprogress": "^0.2.0",
@@ -50,7 +52,6 @@
     "sass": "^1.94.0",
     "sass-loader": "^16.0.6",
     "style-loader": "^4.0.0",
-    "swiper": "^12.0.3",
     "three": "^0.181.2",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.46.2",

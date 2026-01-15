@@ -1,0 +1,514 @@
+.tiktok-player-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tiktok-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #000;
+}
+
+/* 双击点赞动画 */
+.like-animation {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  pointer-events: none;
+}
+
+.heart-animation {
+  font-size: 120px;
+  animation: heartBeat 0.8s ease-in-out;
+  filter: drop-shadow(0 0 20px rgba(255, 48, 64, 0.5));
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* 顶部控制栏 */
+.top-controls {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 12px 16px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.top-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.top-controls.visible {
+  opacity: 1;
+}
+
+.control-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+}
+
+.control-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.video-info {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.video-topic {
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 6px 16px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.live-badge {
+  color: white;
+  font-size: 12px;
+  padding: 4px 12px;
+  background: linear-gradient(45deg, #FF2D55, #FF375F);
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+/* 左侧视频信息 */
+.video-info-left {
+  position: absolute;
+  bottom: 120px;
+  left: 16px;
+  right: 120px;
+  z-index: 10;
+  color: white;
+  transition: opacity 0.3s ease;
+}
+
+.video-info-left.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-info-left.visible {
+  opacity: 1;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.author-avatar {
+  position: relative;
+  width: 60px;
+  height: 60px;
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  object-fit: cover;
+}
+
+.verified-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #007AFF;
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.author-name {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.follow-btn {
+  background: linear-gradient(45deg, #FF2D55, #FF375F);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: flex-start;
+}
+
+.follow-btn.following {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.follow-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(255, 48, 64, 0.3);
+}
+
+.video-description {
+  margin-bottom: 16px;
+}
+
+.video-description p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.music-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  max-width: fit-content;
+}
+
+.music-icon {
+  font-size: 18px;
+  animation: musicWave 1s infinite;
+}
+
+@keyframes musicWave {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+}
+
+.music-text {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.video-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag {
+  font-size: 12px;
+  padding: 4px 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+/* 右侧交互按钮 */
+.interaction-buttons {
+  position: absolute;
+  bottom: 120px;
+  right: 16px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  transition: opacity 0.3s ease;
+}
+
+.interaction-buttons.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.interaction-buttons.visible {
+  opacity: 1;
+}
+
+.interaction-button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.interaction-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-icon {
+  font-size: 48px;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  backdrop-filter: blur(10px);
+}
+
+.interaction-btn:hover .btn-icon {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.interaction-btn.active .btn-icon {
+  background: linear-gradient(45deg, #FF2D55, #FF375F);
+}
+
+.btn-count {
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.music-cover {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  animation: rotate 10s linear infinite;
+  animation-play-state: paused;
+}
+
+.music-cover.playing {
+  animation-play-state: running;
+}
+
+.music-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* 底部控制栏 */
+.bottom-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  transition: opacity 0.3s ease;
+}
+
+.bottom-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.bottom-controls.visible {
+  opacity: 1;
+}
+
+.progress-container {
+  margin-bottom: 16px;
+  cursor: pointer;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #FF2D55, #FF375F);
+  transition: width 0.1s linear;
+}
+
+.time-display {
+  color: white;
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.control-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+/* 临时进度条 */
+.temp-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.1);
+  z-index: 5;
+}
+
+.temp-progress-fill {
+  height: 100%;
+  background: linear-gradient(to right, #FF2D55, #FF375F);
+  transition: width 0.1s linear;
+}
+
+/* 音量弹出框 */
+.volume-popup {
+  position: absolute;
+  top: 50%;
+  right: 100px;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 20px;
+  padding: 20px;
+  backdrop-filter: blur(20px);
+  z-index: 20;
+}
+
+.volume-slider-container {
+  height: 200px;
+}
+
+.volume-slider {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  height: 100%;
+  width: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  outline: none;
+  -webkit-appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #FF2D55, #FF375F);
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, #FF2D55, #FF375F);
+  cursor: pointer;
+  border: none;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .author-avatar {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .btn-icon {
+    font-size: 40px;
+    width: 50px;
+    height: 50px;
+  }
+  
+  .music-cover {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .video-info-left {
+    right: 100px;
+  }
+}
+
+/* 暗黑模式支持 */
+@media (prefers-color-scheme: dark) {
+  .tiktok-player-container {
+    background-color: #000;
+  }
+  
+  .control-btn {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  
+  .follow-btn {
+    background: linear-gradient(45deg, #FF2D55, #FF375F);
+  }
+}
