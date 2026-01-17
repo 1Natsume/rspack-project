@@ -1,4 +1,4 @@
-import { useUserStore } from '@/store/user';
+import { useUserStore} from '@/stores/user';
 import { isAuth } from '@/utils/auth';
 import { useMemo } from 'react';
 
@@ -9,4 +9,3 @@ export const useAuth = (authCode: string) => {
   }, [authCode, currentUser?.authList]);
   return auth;
 }
-

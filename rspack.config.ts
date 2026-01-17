@@ -85,16 +85,16 @@ export default defineConfig({
 		allowedHosts: [
             'localhost',
             '8.209.221.116', 
-			'8.137.84.46'  // 你的域名
-        ]
-		// proxy: [{
-		// 	context: ['/newjersey'],
-		// 	target: 'https://www.cnblogs.com/newjersey',
-		// 	secure: true,//接受对方是https的接口
-		// 	changeOrigin: true,
-		// 	pathRewrite: { '^/newjersey': '' },
-		// }
-		// ]
+			'8.137.84.46', // 你的域名
+        ],
+		proxy: [{
+			context: ['/newjersey'],
+			target: 'https://www.cnblogs.com/newjersey',
+			secure: true,//接受对方是https的接口
+			changeOrigin: true,
+			pathRewrite: { '^/newjersey': '' },
+		}
+		]
 	},
 	optimization: {
 		minimizer: [

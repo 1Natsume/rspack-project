@@ -3,7 +3,7 @@
 
 window._config = {
   api: {
-    baseUrl: 'http://8.137.84.46:8000',
+    // baseUrl: 'http://8.137.84.46:8000',
     timeout: 30000,
     authHeader: 'X-Auth-Token',
     imageUrl:'https://1natsume.pages.dev'

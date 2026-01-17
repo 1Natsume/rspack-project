@@ -43,7 +43,7 @@ const DraggableTabNode = (props: DraggableTabPaneProps) => {
   });
 };
 
-const DraggableTab: React.FC<Write<TabsProps , {
+const DraggableTab: React.FC<Write<TabsProps, {
   onItemsChange?: (items: any[]) => void,
   onDragEnd?: ({ activeIndex, overIndex }: { activeIndex: number, overIndex: number }) => void,
 }>> = ({ onItemsChange, ...props }) => {
@@ -91,8 +91,6 @@ const DraggableTab: React.FC<Write<TabsProps , {
       className='tab-layout'
     />
   );
-  };
-
-
+};
 
 export default DraggableTab;

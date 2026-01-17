@@ -1,6 +1,6 @@
 import { memo, useState } from 'react';
 import { Menu } from '@/types/menu'
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores/config';
 
 import './CustomMenu.css'
 
@@ -20,7 +20,7 @@ export type MenuProps = {
 // 菜单项组件
 const MenuItem = memo(({ item, onClick, active, icon }: MenuItemProps) => {
     const [expanded, setExpanded] = useState(false);
-    const { collapsed } = useconfigStore();
+    const { collapsed } = useConfigStore();
     const hasChildren = item.children && item.children.length > 0;
     const handleClick = () => {
         if (hasChildren) {

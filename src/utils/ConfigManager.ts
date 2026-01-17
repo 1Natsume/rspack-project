@@ -1,9 +1,9 @@
-import { AppConfig, defaultConfig } from "@/types/config";
+import { AppConfig } from "@/types/config";
 
 // 配置管理类
 class ConfigManager {
   private isLoaded = false;
-  private config: AppConfig = { ...defaultConfig };
+  private config: AppConfig = { };
   
   /**
    * 加载配置
@@ -108,7 +108,7 @@ class ConfigManager {
    * 获取完整 URL
    */
   getFullUrl(endpoint: string, params?: Record<string, string | number>): string {
-    const { baseUrl } = this.config.api;
+    const baseUrl  = this.config.api?.baseUrl;
     let url = endpoint;
     
     // 替换路径参数

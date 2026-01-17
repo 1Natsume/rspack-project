@@ -1,5 +1,5 @@
 import { getmenulist } from "@/api/user";
-import ProTable, { ProColumnType } from "@/components/Table/Table";
+import ProTable, { ProColumnType } from "@/components/Table";
 import { Menu } from "@/types/menu";
 import { Button } from "antd";
 import React from "react";

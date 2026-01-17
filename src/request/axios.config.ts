@@ -76,8 +76,8 @@ export class AxiosConfig {
     
     // 创建 axios 实例
     this.instance = axios.create({
-      baseURL: this.config.api.baseUrl,
-      timeout: this.config.api.timeout,
+      baseURL: this.config.api?.baseUrl,
+      timeout: this.config.api?.timeout,
       //withCredentials: this.config.api.withCredentials,
       //headers: this.config.api.headers
     });
@@ -103,8 +103,8 @@ export class AxiosConfig {
         
         // 添加请求时间戳
         config.headers['X-Request-Timestamp'] = Date.now();
-        config.headers['X-App-Version'] = cfg.app.version;
-        config.headers['X-Environment'] = cfg.app.environment;
+        config.headers['X-App-Version'] = cfg.app?.version;
+        config.headers['X-Environment'] = cfg.app?.environment;
 
         const token = useConfigStore.getState().token
         if (token) {
@@ -113,7 +113,7 @@ export class AxiosConfig {
         }
         
         // 如果是调试模式，添加日志
-        if (cfg.app.debug) {
+        if (cfg.app?.debug) {
           console.log(`[API Request] ${config.method?.toUpperCase()} ${config.url}`, {
             data: config.data,
             params: config.params
@@ -144,7 +144,7 @@ export class AxiosConfig {
       },
       (error: AxiosError) => {
         const cfg = configManager.get();
-        if (cfg.app.debug) {
+        if (cfg.app?.debug) {
           console.error('[API Request Error]', error);
         }
         return Promise.reject(error);
@@ -169,7 +169,7 @@ export class AxiosConfig {
         //   this.cache.set(cacheKey, response.data, cfg.cache.ttl);
         // }
         
-        if (cfg.app.debug) {
+        if (cfg.app?.debug) {
           console.log(`[API Response] ${response.config.method?.toUpperCase()} ${response.config.url}`, {
             data: response.data,
             status: response.status
@@ -183,7 +183,7 @@ export class AxiosConfig {
         const originalRequest = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
         
         // 日志记录
-        if (cfg.app.debug) {
+        if (cfg.app?.debug) {
           console.error('[API Response Error]', {
             url: error.config?.url,
             method: error.config?.method,

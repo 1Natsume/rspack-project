@@ -78,7 +78,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
             <div className="cg-gallery-header text-blue-300 h-auto w-full relative">
                 <h2 className='absolute text-[25px] left-1'>CG画廊</h2>
                 <button className="close-gallery absolute right-2 top-2" onClick={onClose}>
-                    <img src={config.api.imageUrl+"/images/close.png"}></img>
+                    <img src={config.api?.imageUrl+"/images/close.png"}></img>
                 </button>
             </div>
 
@@ -93,7 +93,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         <div
                             key={cg.id}
                             style={{ cursor: 'pointer' }}
-                            className="cg-item relative bg-gray-500 rounded-xl h-40 xl:h-44 3xl:h-80 xl:text-2xl overflow-hidden"
+                            className="cg-item relative bg-gray-500 rounded-xl h-40 xl:h-44 3xl:h-72 xl:text-2xl overflow-hidden"
                             onClick={() => openCG(cg, index)}
                         >
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
@@ -115,8 +115,8 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
             {selectedCG && (
                 <div className="cg-viewer absolute top-0 w-auto inset-0 m-auto bg-white overflow-y-scroll">
                     <h3 className='absolute text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG.title}</h3>
-                    <button className="cg-close fixed top-0 right-2 z-10" onClick={closeCG}>
-                        <img src={config.api.imageUrl+"/images/close.png"}></img>
+                    <button className="cg-close fixed top-2 right-2 z-10" onClick={closeCG}>
+                        <img src={config.api?.imageUrl+"/images/close.png"}></img>
                     </button>
                     <div className={`cg-full-image relative`}><img className='w-full h-44 object-cover' src={selectedCG.imgUrl} /></div>
                     <div className="cg-viewer-content relative w-full z-10">
@@ -158,14 +158,13 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
             )}
             {
                 pager && (
-                    <div className='cg-pager relative top-10 flex items-center justify-center'>
+                    <div className='cg-pager pagination relative top-10 flex items-center justify-center'>
                         {
                             pager.pages.map(item => (
-                                <a key={item} style={{ cursor: 'pointer' }} className={pager.current == item ? 'p-5 text-cyan-300' : 'p-5 text-white'} onClick={(e) => clickItem(e, item)}>{item}</a>
+                                <a key={item} style={{ cursor: 'pointer' }} className={pager.current == item ? 'active' : ''} onClick={(e) => clickItem(e, item)}>{item}</a>
                             ))
                         }
                     </div>
-
                 )
             }
         </div>

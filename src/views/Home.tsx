@@ -9,7 +9,7 @@ import { useColorAnimation } from '@/hooks/useColorAnimation';
 import AppMenu from '@/components/AppMenu';
 import { configManager } from '@/utils/ConfigManager';
 import { AppMenu as AM } from '@/types/config';
-import HlsPlayer from './HlsPlayer';
+import HlsPlayer from '../components/HlsPlayer';
 import VideoFeed, { Video } from '@/components/VideoFeed/VideoFeed';
 
 const Home = () => {
@@ -36,19 +36,19 @@ const Home = () => {
     }
     GetMenus()
 
-    const fetchVideos = async () => {
-            try {
-                const response = await fetch("http://8.209.221.116:8000/video/");
-                if (!response.ok) throw new Error('Failed to fetch videos');
-                const data = await response.json();
-                setVideos(data);
-            } catch (error) {
-                console.error('Error fetching videos:', error);
-                setVideos([]);
-            }
-        };
+    // const fetchVideos = async () => {
+    //         try {
+    //             const response = await fetch("http://8.209.221.116:8000/video/");
+    //             if (!response.ok) throw new Error('Failed to fetch videos');
+    //             const data = await response.json();
+    //             setVideos(data);
+    //         } catch (error) {
+    //             console.error('Error fetching videos:', error);
+    //             setVideos([]);
+    //         }
+    //     };
 
-        fetchVideos();
+    //     fetchVideos();
   }, [])
 
 
@@ -61,17 +61,17 @@ const Home = () => {
         audioInfo={audioInfo}
       />
 
-      {/* <div className='headertop filter-dot'>
+      <div className='headertop filter-dot'>
         <CustomVideo movies={["https://video.cdn.queniuqe.com/store_trailers/256982456/movie480_vp9.webm?t=1703239286"]}></CustomVideo>
         <AppMenu menu={menus}></AppMenu>
-      </div> */}
+      </div>
       {/* <div className="player-section">
         <div className="player-container">
           <HlsPlayer src='http://127.0.0.1:8000/hls/stream/639c939d0710/'></HlsPlayer>
         </div>
       </div> */}
 
-      <VideoFeed videos={videos}/>
+      {/* <VideoFeed videos={videos}/> */}
 
 
       {/* 隐藏的audio元素用于引用 */}

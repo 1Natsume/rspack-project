@@ -1,12 +1,12 @@
 import { getrolelist } from '@/api/user';
-import ProTable, { ProColumnType } from '@/components/Table/Table';
+import ProTable, { ProColumnType } from '@/components/Table';
 import { MenuType } from '@/types/menu';
 import { Role } from '@/types/role';
 import { Button } from 'antd';
 import { t } from 'i18next';
 import React, { useState, useEffect, useRef } from 'react';
 import NewAndEditForm from './new-edit-form';
-import { ActionType } from '@ant-design/pro-components';
+// import { ActionType } from '@ant-design/pro-components';
 
 const RoleList = () => {
     const [roles, setRoles] = useState<Role[]>([]);
@@ -14,7 +14,7 @@ const RoleList = () => {
     const [selectedRows, setSelectedRows] = React.useState<Role[]>([]);
     const [editData, setEditData] = useState<Role | null>(null);
     const [formOpen, setFormOpen] = useState(false);
-    const actionRef = useRef<ActionType>(null);
+    // const actionRef = useRef<ActionType>(null);
 
     useEffect(() => {
         const getroles = async () => {

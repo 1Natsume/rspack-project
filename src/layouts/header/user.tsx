@@ -1,11 +1,11 @@
 
-import { useconfigStore } from "@/stores/config";
+import { useConfigStore } from "@/stores/config";
 import { useUserStore } from "@/stores/user";
 import { Avatar, Dropdown, MenuProps, Space, Switch } from "antd";
 
 const User = () => {
     const { user, logout } = useUserStore();
-    const {darkMode,setDarkMode} = useconfigStore()
+    const {darkMode,setDarkMode} = useConfigStore()
     const apiUrl = '';
     const handlelogout = () => {
         logout()

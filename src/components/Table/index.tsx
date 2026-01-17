@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { Table, TableProps, Pagination, Spin, Checkbox, Popconfirm, Button, Badge, Tag, Avatar, Image, Switch } from 'antd';
 import type { PaginationProps } from 'antd';
 import type { SorterResult, FilterValue, TableRowSelection } from 'antd/es/table/interface';
-import './ProTable.css';
+import './index.css';
 const apiUrl = '';
 
 // 表格数据项基础类型

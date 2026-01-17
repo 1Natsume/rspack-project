@@ -1,5 +1,6 @@
 import { blogApi } from "@/api/blogApi";
 import { AppMenu } from "@/types/config";
+import { antdUtils } from "@/utils/antd";
 import { useNavigate } from "react-router-dom";
 
 interface AppMenuProps {
@@ -9,8 +10,8 @@ interface AppMenuProps {
 const AppMenu = ({ menu }: AppMenuProps) => {
     var navigate = useNavigate()
 
-    const blogFollow = async () =>{
-        const res =await blogApi.blogFollow()
+    const blogFollow = async () => {
+        const res = await blogApi.blogFollow()
         return res
     }
 
@@ -20,6 +21,10 @@ const AppMenu = ({ menu }: AppMenuProps) => {
             return;
         }
         else if (url.startsWith("me")) {
+            antdUtils.message.info({content:'测试'
+            });
+
+
             return;
         }
         else if (url.startsWith("http")) {
@@ -39,7 +44,7 @@ const AppMenu = ({ menu }: AppMenuProps) => {
                 {
                     menu?.map(item => (
                         <li key={item.name} className="text-[#f57878] hover:text-cyan-300 text-right mr-2">
-                            <a style={{cursor: 'pointer'}} onClick={(e) =>clickItem(e,item.path)}>
+                            <a style={{ cursor: 'pointer' }} onClick={(e) => clickItem(e, item.path)}>
                                 <div className="relative text-[40px] [text-shadow:-1px_0_white,0_1px_white,1px_0_white,0_-1px_white]">{item.name}</div>
                                 <div className="relative -mt-4">{item.title}</div>
                             </a>

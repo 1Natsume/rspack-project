@@ -101,7 +101,7 @@ function RoleMenu({
 
     setSaveLoading(false);
 
-    if (data.status == 200) {
+    if (data.success) {
       antdUtils.message?.success(t("koENLxye" /* 分配成功 */));
       onCancel();
     }

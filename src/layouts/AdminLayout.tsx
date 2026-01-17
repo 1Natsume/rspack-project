@@ -1,7 +1,7 @@
 import React, { ComponentType, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import CustomMenu from '@/components/menu/CustomMenu'
-import { useconfigStore } from '@/stores/config';
+import { useConfigStore } from '@/stores/config';
 import { Menu } from '@/types/menu';
 import { KeepAliveTab, Tab, useTabs } from '@/types/tab';
 import DraggableTab from '@/components/Tab/DraggableTab';
@@ -25,7 +25,7 @@ const AdminLayout = () => {
     setTabs,
   } = useTabs();
 
-  const { collapsed, setCollapsed } = useconfigStore();
+  const { collapsed, setCollapsed } = useConfigStore();
   // 当前激活的页签key
   const [activeTab, setActiveTab] = useState('');
   const { user } = useUserStore()

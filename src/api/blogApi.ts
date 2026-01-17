@@ -50,7 +50,7 @@ export const blogApi = {
                     // a.isTop = el.classList.contains('pinned')
                     // a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;
                     if (el.querySelectorAll(".desc_img")[index]) {
-                        a.imgUrl = 'https://images.weserv.nl/?url=' + el.querySelectorAll(".desc_img")[index]?.attributes[0].value;
+                        a.imgUrl = el.querySelectorAll(".desc_img")[index]?.attributes[0].value;
                     }
                     let idArr = a.editUrl.split("/");
                     a.id = parseInt(idArr[idArr.length - 1].replace(".html", ""));
@@ -85,7 +85,7 @@ export const blogApi = {
                 a.isTop = el.classList.contains('pinned')
                 a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;
                 if (el.querySelector(".desc_img")) {
-                    a.imgUrl = 'https://images.weserv.nl/?url=' + el.querySelector(".desc_img")?.attributes[0].value;
+                    a.imgUrl = el.querySelector(".desc_img")?.attributes[0].value as string;
                 }
 
                 if (postDesc) {
