@@ -12,7 +12,7 @@ import { useRequest, useUpdateEffect } from 'ahooks';
 import { lazy, useEffect, useState } from 'react';
 import { useConfigStore } from '@/stores';
 import { useUserStore } from '@/stores/user';
-import { User } from '@/hooks/use-auth/types';
+import { User } from '@/types/auth/types';
 
 export type CurrentUser = User & { flatMenus: Menu[], menus: Menu[], authList: string[] }
 

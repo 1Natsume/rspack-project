@@ -1,3 +1,4 @@
+import Article from '@/components/article';
 import React from 'react';
 import { createBrowserRouter, createHashRouter } from 'react-router-dom';
 // 使用 React.lazy 实现路由懒加载
@@ -27,7 +28,11 @@ const routers = createHashRouter([
             {
                 path: 'cg',
                 element: <CG />
-            }
+            },
+            {
+                path: '/p/:id?',
+                element: <Article />
+            },
         ],
     },
     // {

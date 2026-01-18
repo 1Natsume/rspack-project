@@ -14,6 +14,7 @@ export const useConfigStore = create<ConfigState>()(
       token: '',
       refreshToken: '',
       setCollapsed: (collapsed) => set({ collapsed }),
+      setBg: (bg) => set({ bg }),
       setDarkMode: (darkMode) => set({
         darkMode,
       }),

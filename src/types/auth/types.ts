@@ -9,6 +9,7 @@ export type User = {
     role: string[];
     status: number;
     permissions: Menu[] | null;
+    authList: string[]
 }
 
 export interface LoginCredentials {
@@ -17,7 +18,7 @@ export interface LoginCredentials {
 }
 
 export interface UserState {
-    user: User | null;
+    currentUser: User | null;
     setUser: (user: User) => void
     logout:()=> void
 }

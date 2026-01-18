@@ -1,6 +1,6 @@
 import { getuserlist } from "@/api/user";
 import ProTable, { PaginationConfig, ProColumnType } from "@/components/Table";
-import { User } from "@/hooks/use-auth/types";
+import { User } from "@/types/auth/types";
 import { Button, PaginationProps } from "antd";
 import React, { useEffect, useState } from "react";
 

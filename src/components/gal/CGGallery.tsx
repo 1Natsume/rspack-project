@@ -6,6 +6,9 @@ import CodeBlock from '../CodeBlock';
 import Background from './Background';
 import RichTextEditor from '../RichTextEditor';
 import { configManager } from '@/utils/ConfigManager';
+import { useConfigStore } from '@/stores';
+import ArticleTOC from '../article-toc';
+import { useNavigate } from 'react-router-dom';
 
 interface CGGalleryProps {
     onClose: () => void;
@@ -17,7 +20,9 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
     const [unlockedCGs, setunlockedCGs] = useState<Archive[]>([]);
     const [pager, setPager] = useState<Pager>();
     const hasMounted = useRef(false);
+    const {bg} = useConfigStore()
     const config = configManager.get();
+    var navigate = useNavigate()
 
     useEffect(() => {
         if (hasMounted.current) return;
@@ -26,13 +31,14 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
     }, [])
 
     const Get = async (cg: Archive) => {
-        const res = await blogApi.GetArticle(cg)
+        const res = await blogApi.GetArticle(cg.editUrl)
         res.imgUrl = cg.imgUrl;
         setSelectedCG(res)
     }
 
     const openCG = (cg: Archive, index: number) => {
-        Get(cg);
+        //Get(cg);
+        navigate(cg.editUrl)
         setCurrentIndex(index);
     };
 
@@ -69,7 +75,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
 
     return (
         <div className="cg-gallery h-screen relative" style={{
-            backgroundImage: 'url()',
+            backgroundImage: 'url('+bg+')',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
@@ -93,7 +99,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         <div
                             key={cg.id}
                             style={{ cursor: 'pointer' }}
-                            className="cg-item relative bg-gray-500 rounded-xl h-40 xl:h-44 3xl:h-72 xl:text-2xl overflow-hidden"
+                            className="cg-item relative bg-black/40 rounded-xl h-40 xl:h-44 3xl:h-72 xl:text-2xl overflow-hidden"
                             onClick={() => openCG(cg, index)}
                         >
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
@@ -112,15 +118,21 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                 </div>
             )}
 
-            {selectedCG && (
-                <div className="cg-viewer absolute top-0 w-auto inset-0 m-auto bg-white overflow-y-scroll">
+            {/* {selectedCG && (
+                <div className="cg-viewer absolute top-0 w-screen inset-0 m-auto bg-white overflow-y-scroll">
                     <h3 className='absolute text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG.title}</h3>
                     <button className="cg-close fixed top-2 right-2 z-10" onClick={closeCG}>
                         <img src={config.api?.imageUrl+"/images/close.png"}></img>
                     </button>
                     <div className={`cg-full-image relative`}><img className='w-full h-44 object-cover' src={selectedCG.imgUrl} /></div>
-                    <div className="cg-viewer-content relative w-full z-10">
-                        {<CodeBlock code={selectedCG.desc} language={'javascript'}></CodeBlock>}
+                    <div className="cg-viewer-content relative w-full z-10 flex">
+                        <div className=''>
+                            {<CodeBlock code={selectedCG.desc} language={'javascript'}></CodeBlock>}
+                        </div>
+                        
+                        <div className=''>
+                            {<ArticleTOC></ArticleTOC>}
+                        </div>
                     </div>
                     <div className='cg-editor'>
                         {
@@ -155,7 +167,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         </button>
                     </div>
                 </div>
-            )}
+            )} */}
             {
                 pager && (
                     <div className='cg-pager pagination relative top-10 flex items-center justify-center'>

@@ -107,13 +107,13 @@ const GalgameCG: React.FC<GalgameCGProps> = ({
   return (
     <div className='modal-overlay'>
       <div className='modal-close absolute right-5 top-2' onClick={onClose}>
-        <img src={config.api.imageUrl + "/images/close.png"}></img>
+        <img src={config.api?.imageUrl + "/images/close.png"}></img>
       </div>
       <div className="galgame-cg-container" style={{ width, height }}>
         {/* 背景图层 */}
         <div
           className="cg-background"
-          style={{ backgroundImage: `url(${config.api.imageUrl+backgroundImage})` }}
+          style={{ backgroundImage: `url(${config.api?.imageUrl+backgroundImage})` }}
           onClick={handleBackgroundClick}
           ref={containerRef}
           role="button"
@@ -124,7 +124,7 @@ const GalgameCG: React.FC<GalgameCGProps> = ({
             <div
               className="cg-expression"
               style={{
-                backgroundImage: `url(${config.api.imageUrl+currentExpression.image})`,
+                backgroundImage: `url(${config.api?.imageUrl+currentExpression.image})`,
                 ...calculatePosition(currentExpression.position),
                 transform: `translate(-50%, -50%) scale(${currentExpression.scale || 1})`,
                 zIndex: currentExpression.zIndex || 1

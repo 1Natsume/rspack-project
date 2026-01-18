@@ -1,4 +1,4 @@
-import { LoginCredentials, RegisterData, User } from '../hooks/use-auth/types';
+import { LoginCredentials, RegisterData, User } from '../types/auth/types';
 import { useConfigStore } from '@/stores';
 import { apiService } from '@/request/api.service';
 

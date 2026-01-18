@@ -1,13 +1,13 @@
 
-import { UserState } from '@/hooks/use-auth/types'
+import { UserState } from '@/types/auth/types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 export const useUserStore = create<UserState>()(
   persist(
     (set) => ({
-      user: null,
-      setUser: (user) => set({ user }),
+      currentUser: null,
+      setUser: (currentUser) => set({ currentUser }),
       logout:() =>{
         set({})
       }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { LoginCredentials } from '@/hooks/use-auth/types';
+import type { LoginCredentials } from '@/types/auth/types';
 import { Input } from 'antd';
 import { authService } from '@/api/authAPI';
 import { antdUtils } from '@/utils/antd';

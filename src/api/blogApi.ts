@@ -80,7 +80,7 @@ export const blogApi = {
                 };
                 a.title = el.querySelector(".postTitle a span")?.textContent.trim().replace("[置顶]", "").replace(" [置顶]", "") as string;
                 let postDesc = el.querySelector(".postDesc")?.textContent;
-                a.editUrl = el.querySelector(".postTitle a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com', '') as string;
+                a.editUrl = el.querySelector(".postTitle a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com/newjersey', '') as string;
                 el.querySelector(".postCon .c_b_p_desc a")?.remove();
                 a.isTop = el.classList.contains('pinned')
                 a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;
@@ -113,8 +113,8 @@ export const blogApi = {
         );
         if (res) return true
     },
-    GetArticle: async (param: Archive) => {
-        const dom = await webScraper.scrapeHtml(param.editUrl);
+    GetArticle: async (param: string) => {
+        const dom = await webScraper.scrapeHtml('/newjersey/p/'+param);
         let obj: Archive = {
             id: 0,
             title: '',
@@ -129,12 +129,12 @@ export const blogApi = {
             isTop: false
         };
         obj.title = dom.querySelector("#topics #cb_post_title_url span")?.textContent as string;
-        obj.desc = dom.querySelector("#topics .postBody")?.textContent.replace(new RegExp("_src", 'g'), "src") as string;
+        obj.desc = dom.querySelector("#topics .postBody #cnblogs_post_body")?.innerHTML.replace(new RegExp("_src", 'g'), "src") as string;
         obj.time = dom.querySelector("#topics .postDesc #post-date")?.textContent as string;
         obj.editUrl = dom.querySelector("#topics .postDesc [rel='nofollow']")?.getAttribute("href") as string;
         //obj.fontNum = dom.find("#topics").find(".postBody").text().length;
         obj.readNum = parseInt(dom.querySelector("#post_view_count")?.textContent as string);
-        obj.id = param.id;
+        //obj.id = param.id;
         obj.comments = blogApi.GetCommentList(dom)
         return obj;
     },

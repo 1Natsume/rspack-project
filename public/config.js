@@ -12,5 +12,6 @@ window._config = {
     { name: "HOME", title: "首页", path: "/blog", icon: "fc-lol-huli fc-icon-40" },
     { name: 'CG', title: 'CG', path: '/cg' },
     { name: "FOLLOW", title: "关注", path: 'me', icon: "fc-lol-ruiwen fc-icon-40" },
-  ]
+  ],
+  bg:'https://api.chino.mom/api/'
 };

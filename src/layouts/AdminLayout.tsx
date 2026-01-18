@@ -28,8 +28,8 @@ const AdminLayout = () => {
   const { collapsed, setCollapsed } = useConfigStore();
   // 当前激活的页签key
   const [activeTab, setActiveTab] = useState('');
-  const { user } = useUserStore()
-  const menus = user?.permissions;
+  const { currentUser } = useUserStore()
+  const menus = currentUser?.permissions;
   const navigate = useNavigate()
   const location = useLocation()
   const hasMounted = useRef(false);

@@ -4,7 +4,7 @@ import { useUserStore } from "@/stores/user";
 import { Avatar, Dropdown, MenuProps, Space, Switch } from "antd";
 
 const User = () => {
-    const { user, logout } = useUserStore();
+    const { currentUser, logout } = useUserStore();
     const {darkMode,setDarkMode} = useConfigStore()
     const apiUrl = '';
     const handlelogout = () => {
@@ -49,7 +49,7 @@ const User = () => {
             </div>
             <div className="w-18 self-center"><Dropdown menu={{ items }}>
                 <a onClick={(e) => e.preventDefault()}>
-                    <label className="text-center">{user?.name}</label>  <Avatar src={apiUrl + user?.avatar} />
+                    <label className="text-center">{currentUser?.name}</label>  <Avatar src={apiUrl + currentUser?.avatar} />
                 </a>
             </Dropdown> </div>
         </div>

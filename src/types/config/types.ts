@@ -12,4 +12,5 @@ export interface ConfigState {
     setLang: (lang: string) => void;
     setToken: (lang: string) => void;
     setRefreshToken: (lang: string) => void;
+    setBg: (bg: string) => void;
 }
