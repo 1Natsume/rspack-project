@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import ArticleTOC from "../article-toc"
-import CodeBlock from "../CodeBlock"
 import RichTextEditor from "../RichTextEditor"
 import { Archive } from "@/types/blog/types";
 import { configManager } from "@/utils/ConfigManager";
@@ -42,11 +41,10 @@ const Article = () => {
             </div>
             <div className="flex flex-row w-screen">
                 <div className='flex-2'>
-                    {/* {<CodeBlock code={selectedCG?.desc as string} language={'html'}></CodeBlock>} */}
-                    <div
+                    {/* <div
                         dangerouslySetInnerHTML={{ __html: selectedCG?.desc as string }}
                         className="rendered-html article-content"
-                    />
+                    /> */}
                 </div>
                 <div className='flex-1'>
                     {<ArticleTOC></ArticleTOC>}

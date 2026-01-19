@@ -2,7 +2,6 @@
 import { blogApi } from '@/api/blogApi';
 import { Archive, Pager } from '@/types/blog/types';
 import React, { useEffect, useRef, useState } from 'react';
-import CodeBlock from '../CodeBlock';
 import Background from './Background';
 import RichTextEditor from '../RichTextEditor';
 import { configManager } from '@/utils/ConfigManager';
@@ -127,7 +126,6 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                     <div className={`cg-full-image relative`}><img className='w-full h-44 object-cover' src={selectedCG.imgUrl} /></div>
                     <div className="cg-viewer-content relative w-full z-10 flex">
                         <div className=''>
-                            {<CodeBlock code={selectedCG.desc} language={'javascript'}></CodeBlock>}
                         </div>
                         
                         <div className=''>
