@@ -82,8 +82,8 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
         }}>
             <div className="cg-gallery-header text-blue-300 h-auto w-full relative">
                 <h2 className='absolute text-[25px] left-1'>CG画廊</h2>
-                <button className="close-gallery absolute right-2 top-2" onClick={onClose}>
-                    <img src={config.api?.imageUrl+"/images/close.png"}></img>
+                <button className="close-gallery absolute right-2 top-2  hover:rotate-[360deg] transition-transform duration-1000" onClick={onClose}>
+                    <img className='' src={config.api?.imageUrl+"/images/close.png"}></img>
                 </button>
             </div>
 
@@ -98,12 +98,14 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         <div
                             key={cg.id}
                             style={{ cursor: 'pointer' }}
-                            className="cg-item relative bg-black/40 rounded-xl h-40 xl:h-44 3xl:h-72 xl:text-2xl overflow-hidden"
+                            className="cg-item relative bg-black/40 rounded-xl h-40 xl:h-44 3xl:h-72 xl:text-2xl overflow-hidden 
+                            hover:shadow-xl hover:-translate-y-1 
+            transition-all duration-300 ease-in-out"
                             onClick={() => openCG(cg, index)}
                         >
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
                                 {
-                                    cg.imgUrl && (<img src={cg.imgUrl} />)
+                                    cg.imgUrl && (<img src={cg.imgUrl} referrerPolicy="no-referrer"/>)
                                 }
                             </div>
                             <div className="cg-title absolute inset-0 text-white w-full h-8 text-center self-center text-[14px] 3xl:text-[30px] overflow-hidden text-ellipsis">

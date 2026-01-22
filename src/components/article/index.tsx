@@ -4,18 +4,24 @@ import RichTextEditor from "../RichTextEditor"
 import { Archive } from "@/types/blog/types";
 import { configManager } from "@/utils/ConfigManager";
 import { blogApi } from "@/api/blogApi";
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Article = () => {
     const [selectedCG, setSelectedCG] = useState<Archive | null>(null);
     const config = configManager.get();
     const hasMounted = useRef(false);
     const params = useParams();
+    const navigate = useNavigate()
 
     const Get = async () => {
         const res = await blogApi.GetArticle(params.id as string)
         setSelectedCG(res)
     }
+
+    const closeCG = () => {
+        setSelectedCG(null);
+        navigate('/blog', { replace: true })
+    };
 
     useEffect(() => {
         if (hasMounted.current) return;
@@ -25,10 +31,10 @@ const Article = () => {
 
     return (
         <div className="relative w-screen bg-white">
-            {/* <button className="cg-close fixed top-2 right-2 z-10" onClick={closeCG}>
+            <button className="cg-close fixed top-2 right-2 z-10" onClick={closeCG}>
                 <img src={config.api?.imageUrl + "/images/close.png"}></img>
-            </button> */}
-            <div className={`relative`}>
+            </button>
+            <div className={`relative h-40`}>
                 <div className="" style={{
                     // backgroundImage: 'url(' + selectedCG?.imgUrl + ')',
                     // backgroundSize: 'cover',
@@ -37,16 +43,14 @@ const Article = () => {
                     // backgroundAttachment: 'fixed', // 视差效果
                 }}></div>
                 {/* <img className='w-full h-44 object-cover' src={selectedCG?.imgUrl} /> */}
-                {/* <h3 className='absolute w-auto text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG?.title}</h3> */}
+                <h3 className='absolute w-auto text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG?.title}</h3>
             </div>
-            <div className="flex flex-row w-screen">
-                <div className='flex-2'>
-                    {/* <div
-                        dangerouslySetInnerHTML={{ __html: selectedCG?.desc as string }}
-                        className="rendered-html article-content"
-                    /> */}
-                </div>
-                <div className='flex-1'>
+            <div className="relative pl-20 pr-20 overflow-hidden">
+                <div
+                    dangerouslySetInnerHTML={{ __html: selectedCG?.desc as string }}
+                    className="rendered-html article-content w-2/3"
+                />
+                <div className='absolute top-0 w-60 right-2'>
                     {<ArticleTOC></ArticleTOC>}
                 </div>
             </div>

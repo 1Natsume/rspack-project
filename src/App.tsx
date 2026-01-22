@@ -4,17 +4,23 @@ import '@/assets/app.css'
 import { configManager } from './utils/ConfigManager';
 import RootRouterProvider from './router/provider';
 import { useConfigStore } from './stores';
+import { musicPlayer } from './utils/musicplayer';
 
-// 加载配置
 await configManager.load();
 
 const App: React.FC = () => {
-  const config = configManager.get()
+  
   const {setBg} = useConfigStore()
   
+  const start = async()=>{
+    // 加载配置
+    
+    //await musicPlayer.load()
+  }
 
   useEffect(()=>{
-    setBg(config.bg as string)
+    start()
+    setBg(configManager.get().bg as string)
   },[])
   // const { darkMode, lang } = useGlobalStore(
   //   useSelector(['darkMode', 'lang'])
