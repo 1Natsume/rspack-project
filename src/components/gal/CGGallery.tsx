@@ -19,7 +19,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
     const [unlockedCGs, setunlockedCGs] = useState<Archive[]>([]);
     const [pager, setPager] = useState<Pager>();
     const hasMounted = useRef(false);
-    const {bg} = useConfigStore()
+    const { bg } = useConfigStore()
     const config = configManager.get();
     var navigate = useNavigate()
 
@@ -74,17 +74,22 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
 
     return (
         <div className="cg-gallery h-screen relative" style={{
-            backgroundImage: 'url('+bg+')',
+            backgroundImage: 'url(' + bg + ')',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundAttachment: 'fixed', // 视差效果
         }}>
             <div className="cg-gallery-header text-blue-300 h-auto w-full relative">
-                <h2 className='absolute text-[25px] left-1'>CG画廊</h2>
-                <button className="close-gallery absolute right-2 top-2  hover:rotate-[360deg] transition-transform duration-1000" onClick={onClose}>
-                    <img className='' src={config.api?.imageUrl+"/images/close.png"}></img>
-                </button>
+                <div className='absolute text-[25px] left-1'>{config.logo}</div>
+                {
+                    config.ishome && (
+                        <button className="close-gallery absolute right-2 top-2  hover:rotate-[360deg] transition-transform duration-1000" onClick={onClose}>
+                            <img className='' src={config.api?.imageUrl + "/images/close.png"}></img>
+                        </button>
+                    )
+                }
+
             </div>
 
             {unlockedCGs.length == 0 ? (
@@ -105,7 +110,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         >
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
                                 {
-                                    cg.imgUrl && (<img src={cg.imgUrl} referrerPolicy="no-referrer"/>)
+                                    cg.imgUrl && (<img src={cg.imgUrl} referrerPolicy="no-referrer" />)
                                 }
                             </div>
                             <div className="cg-title absolute inset-0 text-white w-full h-8 text-center self-center text-[14px] 3xl:text-[30px] overflow-hidden text-ellipsis">

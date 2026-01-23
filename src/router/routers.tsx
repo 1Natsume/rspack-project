@@ -1,4 +1,5 @@
 import Article from '@/components/article';
+import { configManager } from '@/utils/ConfigManager';
 import React from 'react';
 import { createBrowserRouter, createHashRouter } from 'react-router-dom';
 // 使用 React.lazy 实现路由懒加载
@@ -11,6 +12,9 @@ const Layout = React.lazy(() => import('@/layouts'));
 const basename = process.env.NODE_ENV === 'production'
     ? '/newjersey'
     : '';
+const ishome = configManager.get().ishome ?? false
+
+const Main = ishome ? Home:Blog
 
 const routers = createHashRouter([
     {
@@ -19,7 +23,7 @@ const routers = createHashRouter([
         children: [
             {
                 index: true,
-                element: <Home />
+                element: <Main />
             },
             {
                 path: 'blog',

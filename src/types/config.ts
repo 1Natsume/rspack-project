@@ -1,8 +1,8 @@
-export interface AppMenu{
-  name:string;
-  title:string;
-  icon?:string;
-  path:string;
+export interface AppMenu {
+  name: string;
+  title: string;
+  icon?: string;
+  path: string;
 }
 
 export interface AppConfig {
@@ -13,7 +13,7 @@ export interface AppConfig {
     authHeader: string;
     imageUrl: string;
   };
-  
+
   // 应用配置
   app?: {
     name: string;
@@ -22,6 +22,14 @@ export interface AppConfig {
     debug: boolean;
   };
 
-  menu?:AppMenu[],
-  bg?:string
+  menu?: AppMenu[],
+  bg?: string,
+  ishome?: boolean,
+  logo?: string,
+  music?: {
+    enable: boolean;
+    server: 'netease';
+    type: 'playlist';
+    id: string;
+  }
 }

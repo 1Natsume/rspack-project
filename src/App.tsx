@@ -14,8 +14,7 @@ const App: React.FC = () => {
   
   const start = async()=>{
     // 加载配置
-    
-    //await musicPlayer.load()
+    if (configManager.get().music?.enable)  await musicPlayer.load()
   }
 
   useEffect(()=>{

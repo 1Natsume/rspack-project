@@ -13,5 +13,11 @@ window._config = {
     { name: 'CG', title: 'CG', path: '/cg' },
     { name: "FOLLOW", title: "关注", path: 'me', icon: "fc-lol-ruiwen fc-icon-40" },
   ],
-  bg:'https://api.chino.mom/api/'
+  bg:'https://api.chino.mom/api/',
+  music:{
+    enable:true,
+    server: 'netease',
+    type: 'playlist',
+    id:'7282638202'
+  }
 };
