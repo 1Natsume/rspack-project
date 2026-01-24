@@ -19,5 +19,6 @@ window._config = {
     server: 'netease',
     type: 'playlist',
     id:'7282638202'
-  }
+  },
+  ishome: true
 };

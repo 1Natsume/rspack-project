@@ -13,10 +13,9 @@ const basename = process.env.NODE_ENV === 'production'
     ? '/newjersey'
     : '';
 const ishome = configManager.get().ishome ?? false
-
 const Main = ishome ? Home:Blog
 
-const routers = createHashRouter([
+const routers = createBrowserRouter([
     {
         path: '/',
         element: <MainLayout />,

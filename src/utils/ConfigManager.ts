@@ -139,3 +139,4 @@ class ConfigManager {
 
 // 创建单例实例
 export const configManager = new ConfigManager();
+await configManager.load();

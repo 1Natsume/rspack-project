@@ -31,7 +31,7 @@ const Article = () => {
 
     return (
         <div className="relative w-screen bg-white">
-            <button className="cg-close fixed top-2 right-2 z-10" onClick={closeCG}>
+            <button className="cg-close fixed top-2 right-2 z-10 hover:rotate-[360deg] transition-transform duration-1000" onClick={closeCG}>
                 <img src={config.api?.imageUrl + "/images/close.png"}></img>
             </button>
             <div className={`relative h-40`}>
@@ -45,10 +45,10 @@ const Article = () => {
                 {/* <img className='w-full h-44 object-cover' src={selectedCG?.imgUrl} /> */}
                 <h3 className='absolute w-auto text-center top-16 inset-0 m-auto z-10 text-2xl'>{selectedCG?.title}</h3>
             </div>
-            <div className="relative pl-20 pr-20 overflow-hidden">
+            <div className="relative pl-20 pr-20">
                 <div
                     dangerouslySetInnerHTML={{ __html: selectedCG?.desc as string }}
-                    className="rendered-html article-content w-2/3"
+                    className="rendered-html article-content w-auto"
                 />
                 <div className='absolute top-0 w-60 right-2'>
                     {<ArticleTOC></ArticleTOC>}

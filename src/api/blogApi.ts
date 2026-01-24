@@ -114,7 +114,7 @@ export const blogApi = {
         if (res) return true
     },
     GetArticle: async (param: string) => {
-        const dom = await webScraper.scrapeHtml('/newjersey/p/'+param);
+        const dom = await webScraper.scrapeHtml('/newjersey/p/' + param);
         let obj: Archive = {
             id: 0,
             title: '',
@@ -167,5 +167,13 @@ export const blogApi = {
         });
         return data
     },
-
+    loadBlogFollow: async () => {
+        var req = await fetch("/newjersey/ajax/blog-accessories")
+        var res = await req.json()
+        if (res["followStatus"].search('unfollow')) {
+            return true
+        } else {
+            return false
+        }
+    },
 }

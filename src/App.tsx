@@ -6,21 +6,19 @@ import RootRouterProvider from './router/provider';
 import { useConfigStore } from './stores';
 import { musicPlayer } from './utils/musicplayer';
 
-await configManager.load();
-
 const App: React.FC = () => {
-  
-  const {setBg} = useConfigStore()
-  
-  const start = async()=>{
+
+  const { setBg } = useConfigStore()
+
+  const start = async () => {
     // 加载配置
-    if (configManager.get().music?.enable)  await musicPlayer.load()
+    setBg(configManager.get().bg as string)
+    if (configManager.get().music?.enable) await musicPlayer.load()
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     start()
-    setBg(configManager.get().bg as string)
-  },[])
+  }, [])
   // const { darkMode, lang } = useGlobalStore(
   //   useSelector(['darkMode', 'lang'])
   // );
