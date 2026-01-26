@@ -9,11 +9,9 @@ import { configManager } from "./ConfigManager";
  }
 
  class MusicPlayer{
-    private songlist: Music[] = []
     private musicApiUrl:string = 'https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&r=:r'
-    private currentIndex:number = 0;
 
-    async load(): Promise<void> {
+    async load(): Promise<Music[]> {
         var config = configManager.get()
         var url = this.musicApiUrl
         .replace(":server", config.music?.server as string)
@@ -22,17 +20,7 @@ import { configManager } from "./ConfigManager";
         .replace(":r", '1')
 
         var res = await fetch(url)
-        this.songlist = await res.json()
-    }
-
-    next(){
-        this.currentIndex += 1
-        return this.songlist[this.currentIndex]
-    }
-
-    Previous(){
-        this.currentIndex -= 1
-        return this.songlist[this.currentIndex]
+        return await res.json()
     }
  }
 

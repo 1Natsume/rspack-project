@@ -16,6 +16,7 @@ export const useAudioAnalyzer = () => {
       anal.fftSize = 256;
       
       setAudioContext(ctx);
+      
       setAnalyser(anal);
     }
   };
@@ -35,15 +36,15 @@ export const useAudioAnalyzer = () => {
 
   const playAudio = (audioElement: HTMLAudioElement, fileName?: string) => {
     initAudioContext();
-    
     if (audioContext?.state === 'suspended') {
       audioContext.resume();
     }
 
     setupAudioSource(audioElement);
+    
     audioElement.play();
     setIsPlaying(true);
-    
+
     if (fileName) {
       setAudioInfo(`正在播放: ${fileName}`);
     }

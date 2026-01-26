@@ -4,7 +4,6 @@ import '@/assets/app.css'
 import { configManager } from './utils/ConfigManager';
 import RootRouterProvider from './router/provider';
 import { useConfigStore } from './stores';
-import { musicPlayer } from './utils/musicplayer';
 
 const App: React.FC = () => {
 
@@ -13,7 +12,6 @@ const App: React.FC = () => {
   const start = async () => {
     // 加载配置
     setBg(configManager.get().bg as string)
-    if (configManager.get().music?.enable) await musicPlayer.load()
   }
 
   useEffect(() => {

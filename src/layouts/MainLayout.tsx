@@ -1,3 +1,5 @@
+import MusicPlayer from '@/components/music-player';
+import { configManager } from '@/utils/ConfigManager';
 import { Outlet } from 'react-router-dom';
 
 const MainLayout = () => {
@@ -6,9 +8,11 @@ const MainLayout = () => {
             <main className="content">
                 <Outlet />
             </main>
-            {/* <footer className="footer">
-                <p>© 2023 我的应用</p>
-            </footer> */}
+            {
+                configManager.get().music?.enable && (
+                    <MusicPlayer></MusicPlayer>
+                )
+            }
         </div>
     );
 };

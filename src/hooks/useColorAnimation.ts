@@ -20,7 +20,7 @@ export const useColorAnimation = (elementCount: number, isPlaying: boolean, aver
       }
       return;
     }
-
+    
     const animateColors = () => {
       // 根据音频强度调整动画速度
       const speed = Math.max(100, 500 - averageFrequency * 3);
@@ -46,11 +46,14 @@ export const useColorAnimation = (elementCount: number, isPlaying: boolean, aver
 
     animationRef.current = requestAnimationFrame(animateColors);
 
+    
     return () => {
       if (animationRef.current) {
+        
         cancelAnimationFrame(animationRef.current);
       }
     };
+    
   }, [isPlaying, averageFrequency, elementCount]);
 
   const getColorForElement = (elementId: number): string => {

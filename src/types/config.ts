@@ -31,5 +31,6 @@ export interface AppConfig {
     server: 'netease';
     type: 'playlist';
     id: string;
-  }
+  },
+  movies?:[]
 }
