@@ -45,7 +45,7 @@ export const blogApi = {
                     };
                     a.title = item.querySelector("a span")?.textContent.trim().replace("[置顶]", "").replace(" [置顶]", "") as string;
                     let postDesc = el.querySelectorAll(".postDesc")[index].textContent;
-                    a.editUrl = item.querySelector("a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com', '') as string;
+                    a.editUrl = item.querySelector("a")?.getAttribute("href")?.trim().replace('https://www.cnblogs.com/newjersey', '') as string;
                     // el.querySelector(".postCon .c_b_p_desc a")?.remove();
                     // a.isTop = el.classList.contains('pinned')
                     // a.desc = el.querySelector(".postCon .c_b_p_desc")?.textContent.replace('\n摘要：        \n', '') as string;

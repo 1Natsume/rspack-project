@@ -8,11 +8,11 @@ const MainLayout = () => {
             <main className="content">
                 <Outlet />
             </main>
-            {
+            {/* {
                 configManager.get().music?.enable && (
                     <MusicPlayer></MusicPlayer>
                 )
-            }
+            } */}
         </div>
     );
 };

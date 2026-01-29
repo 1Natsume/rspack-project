@@ -8,6 +8,7 @@ import { configManager } from '@/utils/ConfigManager';
 import { useConfigStore } from '@/stores';
 import ArticleTOC from '../article-toc';
 import { useNavigate } from 'react-router-dom';
+import MusicPlayer from '../music-player';
 
 interface CGGalleryProps {
     onClose: () => void;
@@ -98,7 +99,8 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                     <p>继续游戏以解锁更多CG</p>
                 </div>
             ) : (
-                <div className="cg-grid relative top-10 grid sm:grid-cols-4 lg:grid-cols-3 gap-8 justify-center pl-6 pr-6 sm:pl-20 sm:pr-20 xl:grid-cols-4">
+                <div className="cg-grid relative top-10 grid sm:grid-cols-4 lg:grid-cols-3 gap-8 justify-center pl-6 pr-6 sm:pl-20 sm:pr-20 xl:grid-cols-4"
+                id='cg-grid'>
                     {unlockedCGs.map((cg, index) => (
                         <div
                             key={cg.id}
@@ -182,6 +184,11 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                             ))
                         }
                     </div>
+                )
+            }
+            {
+                configManager.get().music?.enable && unlockedCGs.length>0 && (
+                    <MusicPlayer></MusicPlayer>
                 )
             }
         </div>

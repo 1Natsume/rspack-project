@@ -1,9 +1,8 @@
 import { configManager } from '@/utils/ConfigManager';
 import { Music, musicPlayer } from '@/utils/musicplayer';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Modal from '../modal';
-import { useAudioAnalyzer } from '@/hooks/useAudioAnalyzer';
-import { useColorAnimation } from '@/hooks/useColorAnimation';
+import { useMusicVisualization } from '@/hooks/useMusicVisualization';
 
 const MusicPlayer = () => {
   const [currentMusicIndex, setCurrentMusicIndex] = useState(0);
@@ -16,18 +15,21 @@ const MusicPlayer = () => {
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
   const [showPlaylist, setShowPlaylist] = useState(false);
+  const [frequencyData, setFrequencyData] = useState<number[]>([]);
 
-  //const audioRef = useRef<HTMLAudioElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const targetElements: string[] = []
+  const targetRootId = 'cg-grid'
+  const intensity = 1.5
+  const mode: 'sequential' | 'frequency' | 'beat' = 'frequency',
+    colorPalette = ['#FF0080', '#00FF80', '#0080FF', '#FF8000'],
+    baseColor = '',
+    transitionSpeed = 300,
+    smoothness = 0.8
+  const [selectedMode, setSelectedMode] = useState(mode);
+  const [activeColorIndex, setActiveColorIndex] = useState(0);
+  const [elements, setElements] = useState<HTMLElement[]>([]);
 
-  const {
-      audioRef,
-      isPlaying,
-      audioInfo,
-      playAudio,
-      stopAudio,
-      getFrequencyData,
-      getAverageFrequency
-    } = useAudioAnalyzer();
 
   //const { getColorForElement } = useColorAnimation(10, !isPlaying, averageFrequency);
 
@@ -37,11 +39,11 @@ const MusicPlayer = () => {
     setCurrentMusic(res[currentMusicIndex]);
   }
 
-  const ll = () =>{
+  const ll = () => {
     var ids = document.querySelectorAll('.cg-item')
-    console.log(getAverageFrequency())
+
     // ids.forEach((val,i)=>(
-      
+
     //   val.classList.add('bg-['+getColorForElement(i)+']')
     // ))
   }
@@ -49,6 +51,7 @@ const MusicPlayer = () => {
   // 初始化音频
   useEffect(() => {
     load();
+    getTargetElements()
     if (audioRef.current) {
       audioRef.current.volume = volume;
 
@@ -65,8 +68,6 @@ const MusicPlayer = () => {
             return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
           };
 
-          ll()
-
           setCurrentTime(formatTime(current));
           if (total && !isNaN(total)) {
             setDuration(formatTime(total));
@@ -82,6 +83,7 @@ const MusicPlayer = () => {
         }
       };
     }
+    
   }, [volume]);
 
   // 播放/暂停
@@ -135,6 +137,23 @@ const MusicPlayer = () => {
 
   //     setProgress(0);
   //   };
+  
+
+  // 使用音乐可视化钩子
+  const {
+    currentElementIndex,
+    activeElements,
+    beatDetected,
+    frequencyHistory,
+  } = useMusicVisualization(audioRef.current, {
+    elements,
+    mode: selectedMode,
+    intensity,
+    colorPalette,
+    baseColor,
+    transitionSpeed,
+    smoothness
+  });
 
   // 选择特定歌曲
   const selectMusic = (item: Music, index: number) => {
@@ -145,14 +164,56 @@ const MusicPlayer = () => {
       audioRef.current.pause();
 
       audioRef.current.src = item.url;
-      //audioRef.current.play();
-      playAudio(audioRef.current)
-      
+      handlePlay()
+      setShowPlaylist(false)
+
     } else {
 
     }
 
     setProgress(0);
+  };
+
+  // 播放音乐
+  const handlePlay = useCallback(async () => {
+    if (!audioRef.current) return;
+    
+    try {
+      await audioRef.current.play();
+      //setIsPlaying(true);
+    } catch (error) {
+      console.error('播放失败:', error);
+    }
+  }, []);
+
+  // 获取目标元素
+  const getTargetElements = (): HTMLElement[] => {
+    const elements: HTMLElement[] = [];
+
+    // 通过选择器获取元素
+    if (targetElements && targetElements.length > 0) {
+      targetElements.forEach(selector => {
+        const found = document.querySelectorAll<HTMLElement>(selector);
+        found.forEach(el => elements.push(el));
+      });
+    }
+
+    // 通过根元素ID获取子元素
+    if (targetRootId) {
+      const root = document.getElementById(targetRootId);
+      if (root) {
+        Array.from(root.children).forEach((child) => {
+          if (child instanceof HTMLElement) {
+            elements.push(child);
+          }
+        });
+      }
+    }
+
+    
+    setElements(elements)
+
+    return elements;
   };
 
   // 音量控制
@@ -190,6 +251,12 @@ const MusicPlayer = () => {
     }
   };
 
+  // 手动切换到下一个元素
+  const nextElement = useCallback(() => {
+    const nextIndex = (currentElementIndex + 1) % elements.length;
+    // 这里可以添加手动触发的视觉效果
+  }, [currentElementIndex, elements.length]);
+
   return (
     <div className="player-container">
       <div className="fixed bottom-0 right-1 text-white">
@@ -218,7 +285,7 @@ const MusicPlayer = () => {
       </Modal>
 
       {/* 隐藏的audio元素用于引用 */}
-      <audio ref={audioRef} style={{ display: 'none' }} />
+      <audio ref={audioRef} crossOrigin="anonymous" style={{ display: 'none' }} />
     </div>
 
   );
