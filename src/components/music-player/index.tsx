@@ -21,7 +21,7 @@ const MusicPlayer = () => {
   const targetElements: string[] = []
   const targetRootId = 'cg-grid'
   const intensity = 1.5
-  const mode: 'sequential' | 'frequency' | 'beat' = 'frequency',
+  const mode: 'sequential' | 'frequency' | 'beat' = 'beat',
     colorPalette = ['#FF0080', '#00FF80', '#0080FF', '#FF8000'],
     baseColor = '',
     transitionSpeed = 300,
@@ -37,15 +37,6 @@ const MusicPlayer = () => {
     var res = await musicPlayer.load()
     setPlaylist(res);
     setCurrentMusic(res[currentMusicIndex]);
-  }
-
-  const ll = () => {
-    var ids = document.querySelectorAll('.cg-item')
-
-    // ids.forEach((val,i)=>(
-
-    //   val.classList.add('bg-['+getColorForElement(i)+']')
-    // ))
   }
 
   // 初始化音频

@@ -1,7 +1,6 @@
 import CustomVideo from '@/components/CustomVideo';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Canvas } from '@react-three/fiber'
-import Model from './Model';
 import { OrbitControls } from '@react-three/drei';
 
 import AppMenu from '@/components/AppMenu';
@@ -9,11 +8,15 @@ import { configManager } from '@/utils/ConfigManager';
 import { AppMenu as AM } from '@/types/config';
 import HlsPlayer from '../components/HlsPlayer';
 import VideoFeed, { Video } from '@/components/VideoFeed/VideoFeed';
+import GLTFModel from '@/components/GLTFModel';
+
 
 const Home = () => {
 
   const [menus, setMenus] = useState<AM[]>([]);
   const [videos, setVideos] = useState<Video[]>([]);
+  const [environment, setEnvironment] = useState<'studio' | 'sunset' | 'night' | 'city'>('studio');
+  const [autoRotate, setAutoRotate] = useState(false);
 
   useEffect(() => {
 
@@ -44,6 +47,15 @@ const Home = () => {
       <div className='headertop filter-dot'>
         <CustomVideo movies={configManager.get().movies}></CustomVideo>
         <AppMenu menu={menus}></AppMenu>
+
+        {/* <GLTFModel
+          url={'./ams/鸣潮-爱弥斯.gltf'}
+          scale={5}
+          position={[0, -4, 0]}
+          enableControls={true}
+          autoPlayAnimations={true}
+        /> */}
+
       </div>
       {/* <div className="player-section">
         <div className="player-container">

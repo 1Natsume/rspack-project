@@ -105,7 +105,7 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                         <div
                             key={cg.id}
                             style={{ cursor: 'pointer' }}
-                            className="cg-item relative bg-black/40 rounded-xl h-40 xl:h-44 3xl:h-72 4xl:h-[400px] xl:text-2xl overflow-hidden 
+                            className="cg-item relative bg-black/40 rounded-xl h-40 xl:h-44 3xl:h-[230px] 4xl:h-[350px] xl:text-2xl overflow-hidden 
                             hover:shadow-xl hover:-translate-y-1 
             transition-all duration-300 ease-in-out"
                             onClick={() => openCG(cg, index)}

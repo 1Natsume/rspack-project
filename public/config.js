@@ -20,6 +20,6 @@ window._config = {
     type: 'playlist',
     id:'7282638202'
   },
-  ishome: false,
+  ishome: true,
   movies:["https://video.cdn.queniuqe.com/store_trailers/256982456/movie480_vp9.webm?t=1703239286"]
 };
