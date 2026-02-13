@@ -6,20 +6,20 @@ window._config = {
     // baseUrl: 'http://8.137.84.46:8000',
     timeout: 30000,
     authHeader: 'X-Auth-Token',
-    imageUrl:'https://1natsume.pages.dev'
+    imageUrl: 'https://1natsume.pages.dev'
   },
   menu: [
     { name: "HOME", title: "首页", path: "/blog", icon: "fc-lol-huli fc-icon-40" },
     { name: 'CG', title: 'CG', path: '/cg' },
     { name: "FOLLOW", title: "关注", path: 'me', icon: "fc-lol-ruiwen fc-icon-40" },
   ],
-  bg:'https://api.chino.mom/api/',
-  music:{
-    enable:true,
+  bg: 'https://api.chino.mom/api/',
+  music: {
+    enable: false,
     server: 'netease',
     type: 'playlist',
-    id:'7282638202'
+    id: '7282638202'
   },
-  ishome: true,
-  movies:["https://video.cdn.queniuqe.com/store_trailers/256982456/movie480_vp9.webm?t=1703239286"]
+  ishome: false,
+  movies: ["https://video.cdn.queniuqe.com/store_trailers/256982456/movie480_vp9.webm?t=1703239286"]
 };

@@ -131,3 +131,36 @@
     transform: none;
     box-shadow: none;
 }
+
+/* 像素硬边缘 & 复古渲染 */
+    .pixel-crisp {
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+    }
+    .pixel-font {
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      letter-spacing: -0.02em;
+      line-height: 1.5;
+    }
+    /* 卡片按压效果 + 可罗米粉色阴影 */
+    .pixel-card {
+      transition: all 0.08s ease-in-out;
+      box-shadow: 6px 6px 0px 0px #000000; /* 默认，会被覆盖 */
+      border: 4px solid #000000;
+    }
+    .pixel-card:hover {
+      transform: translate(2px, 2px);
+      box-shadow: 4px 4px 0px 0px #000000;
+    }
+    /* 确保所有像素图边缘清晰 */
+    img.pixel-art {
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+      border-style: solid;
+      border-width: 3px;
+      border-color: #000;
+    }
+    /* 可罗米专属小蝴蝶结骷髅装饰（手动补丁） */
+    .kuromi-deco {
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5));
+    }

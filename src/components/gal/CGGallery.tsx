@@ -92,7 +92,6 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                 }
 
             </div>
-
             {unlockedCGs.length == 0 ? (
                 <div className="no-cg-message">
                     <p>尚未解锁任何CG</p>
@@ -104,18 +103,26 @@ const CGGallery: React.FC<CGGalleryProps> = ({ onClose }) => {
                     {unlockedCGs.map((cg, index) => (
                         <div
                             key={cg.id}
-                            style={{ cursor: 'pointer' }}
-                            className="cg-item relative bg-black/40 rounded-xl h-40 xl:h-44 3xl:h-[230px] 4xl:h-[350px] xl:text-2xl overflow-hidden 
-                            hover:shadow-xl hover:-translate-y-1 
-            transition-all duration-300 ease-in-out"
+                            // style={{ cursor: 'pointer' }}
+                            style={{
+                                backgroundImage: "url('data:image/svg+xml,%3Csvg width=%2232%22 height=%2232%22 viewBox=%220 0 32 32%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Crect width=%2232%22 height=%2232%22 fill=%22%23ffe2ed%22 /%3E%3Crect x=%220%22 y=%220%22 width=%2216%22 height=%2216%22 fill=%22%23ffccd9%22 /%3E%3Crect x=%2216%22 y=%2216%22 width=%2216%22 height=%2216%22 fill=%22%23ffccd9%22 /%3E%3C!-- 小星星 --%3E%3Ccircle cx=%228%22 cy=%228%22 r=%221.5%22 fill=%22%23fff%22 /%3E%3Ccircle cx=%2224%22 cy=%2224%22 r=%221.5%22 fill=%22%23fff%22 /%3E%3C!-- 小心心 --%3E%3Cpath d=%22M6 20L8 18L10 20L8 24Z%22 fill=%22%23ff80a5%22 /%3E%3Cpath d=%22M26 8L28 6L30 8L28 12Z%22 fill=%22%23ff80a5%22 /%3E%3C!-- 可罗米小骷髅蝴蝶结元素 --%3E%3Ccircle cx=%2216%22 cy=%227%22 r=%222%22 fill=%22%23000%22 /%3E%3Crect x=%2215%22 y=%225%22 width=%222%22 height=%222%22 fill=%22%23fff%22 /%3E%3C/svg%3E')",
+                  backgroundRepeat: 'repeat', 
+                  backgroundSize: '32px 32px'
+                            }}
+                            className="pixel-card relative  rounded-xl 
+                            border-4 border-[#ffa6c9] shadow-[6px_6px_0px_0px_#b34180] 
+                            h-40 xl:h-44 3xl:h-[230px] 4xl:h-[350px] xl:text-2xl 
+                            overflow-hidden 
+                            hover:shadow-[4px_4px_0px_0px_#87255b] transition-all duration-100"
                             onClick={() => openCG(cg, index)}
                         >
+                            <div className="absolute inset-0 bg-[rgba(255,235,240,0.7)] [image-rendering:pixelated]"></div>
                             <div className={`cg-image absolute inset-0 w-full h-full object-cover`}>
                                 {
                                     cg.imgUrl && (<img src={cg.imgUrl} referrerPolicy="no-referrer" />)
                                 }
                             </div>
-                            <div className="cg-title absolute inset-0 text-white w-full h-8 text-center self-center text-[14px] 3xl:text-[30px] overflow-hidden text-ellipsis">
+                            <div className="cg-title absolute inset-0 text-[#4d2634] w-full h-8 text-center self-center text-[14px] 3xl:text-[30px] overflow-hidden text-ellipsis">
                                 {cg.title}
                             </div>
                             <div className='cg-date'>
